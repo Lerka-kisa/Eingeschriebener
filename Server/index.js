@@ -10,20 +10,15 @@ const cookieParser = require('cookie-parser');
 const {accessKey} = require("./security/jwtKeys");
 const {Guest} = require("./security/roles");
 const {GetAbilityFor} = require("./security/privilegies");
-const authController = require("./route/route");
+const authRouter = require("./route/route");
 //const apiController = require("./route/api");
 const express = require("express");
 
 
 const PORT = process.env.PORT || 5000;
-// const {Authorization_data, Users_data} = require('./model/authorization');
-// const {University_data, Faculty_data, Speciality_data, Entry_threshold} = require('./model/universities');
-
-
-
 
 //app.use("/api", apiController);
-app.use("/", authController);
+app.use("/", authRouter);
 app.use(express.static("public"));
 app.use(cookieParser("cookie_key"));
 app.use(bodyParser.json());

@@ -1,9 +1,9 @@
 const express = require("express");
 const authController = require("../controller/authorization");
-const homeRouter = express.Router();
+const  authRouter = express.Router();
 
-homeRouter.use("/login", authController.login);
-homeRouter.use("/register", authController.register);
-homeRouter.use("/logout", authController.logout);
+authRouter.use("/login", authController.login);
+authRouter.use("/register", authController.register);
+authRouter.use("/logout", authController.logout);
 
-module.exports = homeRouter;
+module.exports = authRouter;

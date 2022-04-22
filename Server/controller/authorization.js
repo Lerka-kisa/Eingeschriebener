@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const path = __dirname.split('\\');
-const Users_data = require("../model/authorization").Authorization_data;
+const Authorization_data = require("../model/authorization").Authorization_data;
 const {accessKey, refreshKey} = require("../security/jwtKeys");
 
 path.pop();
@@ -58,8 +58,7 @@ exports.register = (req, res, next) => {
             res.sendFile(path.join("\\") + "\\views\\register.html");
             break;
         case "POST":
-
-            Users.create({login: req.body.login,  password: req.body.password, mail: req.body.mail, role: 'ENROLLEE'})
+            Authorization_data.create({login: req.body.login,  password: req.body.password, mail: req.body.mail, role: 'ENROLLEE'})
                 .then(() => res.send("Registration is successful"))
                 .catch(err =>  res.send(err.message));
             break;

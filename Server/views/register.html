@@ -21,8 +21,8 @@
         </p>
 
         <p>
-            <label for="email">Email: </label>
-            <input id="email" type="text" name="email" placeholder="Email" onkeyup="checkEmail(this.value)">
+            <label for="mail">Email: </label>
+            <input id="mail" type="text" name="mail" placeholder="Email" onkeyup="checkEmail(this.value)">
         </p>
 
         <div id="serving">
@@ -74,13 +74,13 @@
     {
         if (/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/gm.test(str))
         {   document.getElementById("errorInput").innerHTML = "";
-            document.getElementsByName("email")[0].style.borderColor = "green";
+            document.getElementsByName("mail")[0].style.borderColor = "green";
             login = true;
         }
         else
         {
             document.getElementById("errorInput").innerHTML = "Mail is not corrected";
-            document.getElementsByName("email")[0].style.borderColor = "red";
+            document.getElementsByName("mail")[0].style.borderColor = "red";
             login = false;
         }
     }

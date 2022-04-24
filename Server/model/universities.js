@@ -1,9 +1,4 @@
-let Sequelize = require('sequelize');
-const Model = Sequelize.Model
-
-const sequelize = new Sequelize('Eingeschriebener', 'LERA', 'Nata_5442488',
-    {host:'localhost', dialect:'mssql'}
-);
+const  {Sequelize, Model, sequelize} = require('./contextDB')
 
 class University_data extends Model{}
 class Faculty_data extends Model{}
@@ -58,15 +53,6 @@ Entry_threshold.init(
 // Speciality_data.hasMany(Entry_threshold, {foreignKey: 'id_speciality'});
 // Entry_threshold.belongsTo(Speciality_data, {foreignKey: 'id_speciality'});
 
-sequelize.sync({force:true});
-
+//sequelize.sync({force:true});
 
 module.exports = {University_data, Faculty_data, Speciality_data, Entry_threshold};
-
-let start = setInterval(() => {connect(); console.log("try connect")}, 10000);
-
-const connect = () =>  sequelize.sync()
-    .then(() => {
-        clearInterval(start);
-        console.log(`Connected to localhost`) })
-    .catch(error => console.log(error));

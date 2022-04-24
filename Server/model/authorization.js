@@ -1,9 +1,4 @@
-let Sequelize = require('sequelize');
-const Model = Sequelize.Model
-
-const sequelize = new Sequelize('Eingeschriebener', "LERA", "Nata_5442488",
-    {host: 'localhost', dialect: 'mssql'}
-);
+const  {Sequelize, Model, sequelize} = require('./contextDB')
 
 class Authorization_data extends Model{}
 class Users_data extends Model{}
@@ -29,14 +24,6 @@ Users_data.init(
     },
     {sequelize, modelName:'Users_data', tableName:'Users_data', timestamps:false}
 );
-sequelize.sync({force:true});
+//sequelize.sync({force:true});
 
 module.exports = {Users_data, Authorization_data};
-
-let start = setInterval(() => {connect(); console.log("try connect")}, 10000);
-
-const connect = () =>  sequelize.sync()
-    .then(() => {
-        clearInterval(start);
-        console.log(`Connected to localhost`) })
-    .catch(error => console.log(error));

@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const path = __dirname.split('\\');
 const Authorization_data = require("../model/authorization").Authorization_data;
 const {accessKey, refreshKey} = require("../security/jwtKeys");
+const {Sequelize} = require("../model/contextDB");
+const Console = require("console");
 
 path.pop();
 
@@ -15,12 +17,11 @@ exports.login = async (req, res, next) => {
                 try {
                     const auth = await Authorization_data.findOne(
                         {
-                            where:
-                                {
-                                    login: req.body.login,
-                                    password: req.body.password
-                                }
-                        });
+                            where:{
+                                [Sequelize.Op.and]:[{ login: req.body.login, password: req.body.password }]
+                            }
+                        })//.then(r => Console.log(r))
+                        //.catch(r => Console.log(` жопа ${r}`));
 
                     const accessToken = jwt.sign({id: auth.id, login: auth.login, role: auth.role}, accessKey, {expiresIn: 3600});
                     const refreshToken = jwt.sign({id: auth.id, login: auth.login, role: auth.role}, refreshKey, {expiresIn: 24 * 3600});
@@ -75,3 +76,7 @@ exports.logout = (req, res) =>
     res.clearCookie('refreshToken');
     res.redirect('/login');
 };
+
+exports.ability = (req, res) => {
+    res.status(200).send(req.rules);
+}

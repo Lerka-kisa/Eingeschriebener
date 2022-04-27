@@ -1,3 +1,3 @@
-exports.admin = {manage: "manage", all: "all"};
-exports.enrollee = {manage: "manage", all: "all"};
-exports.guest = {manage: "manage", all: "all"};
+exports.admin = {manage: "manage_admin", all: "all"};
+exports.enrollee = {manage: "manage_enrollee", all: "all"};
+exports.guest = {manage: "manage_guest", all: "all"};

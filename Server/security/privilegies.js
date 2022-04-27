@@ -1,9 +1,7 @@
 const { AbilityBuilder, Ability } = require("@casl/ability");
 const {Admin, Enrollee} = require("./roles")
 
-const admin = require("./defines").admin;
-const enrollee = require("./defines").enrollee;
-const guest = require("./defines").guest;
+const {admin, enrollee, guest} = require("./defines");
 
 exports.GetAbilityFor = (req) => {
     const {rules, can, cannot} = new AbilityBuilder(Ability);

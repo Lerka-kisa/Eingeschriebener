@@ -8,6 +8,7 @@ class Entry_threshold extends Model{}
 University_data.init(
     {
         name:   {type: Sequelize.STRING, allowNull:false},
+        full_name:   {type: Sequelize.STRING, allowNull:false},
         link:   {type: Sequelize.STRING, allowNull:false}
     },
     {sequelize, modelName:'University_data', tableName:'University_data', timestamps:false}
@@ -15,7 +16,7 @@ University_data.init(
 Faculty_data.init(
     {
         id_university:  {type: Sequelize.INTEGER, allowNull:false, references: {model: University_data, key:'id'}},
-        name:       {type: Sequelize.STRING, allowNull:false}
+        name:           {type: Sequelize.STRING, allowNull:false}
     },
     {sequelize, modelName:'Faculty_data', tableName:'Faculty_data', timestamps:false}
 );
@@ -23,6 +24,7 @@ Speciality_data.init(
     {
         id_faculty:     {type: Sequelize.INTEGER, allowNull:false, references: {model: Faculty_data, key:'id'}},
         name:           {type: Sequelize.STRING, allowNull:false},
+        full_name:      {type: Sequelize.STRING, allowNull:false},
         specification:  {type: Sequelize.STRING, allowNull:false}
     },
     {sequelize, modelName:'Speciality_data', tableName:'Speciality_data', timestamps:false}

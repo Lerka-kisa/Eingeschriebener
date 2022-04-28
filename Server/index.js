@@ -13,7 +13,9 @@ const {GetAbilityFor} = require("./security/privilegies");
 
 //const apiController = require("./route/api");
 const express = require("express");
-const authRouter = require("./route/route");
+const authRouter = require("./route/auth");
+const univRouter = require("./route/univ");
+//const adminRouter = require("./route/admin");
 
 const PORT = process.env.PORT || 5000;
 
@@ -60,8 +62,11 @@ app.get('/resource', (req, res) =>
  *  ^^^ так, надеюсь знаешь
  */
 
-//app.use("/api", apiController);
-app.use("/", authRouter);
+// app.use("/user", userRouter);
+// app.use("/admin", adminRouter);
+// app.use("/home", homeRouter);
+app.use("/auth", authRouter);
+app.use("/univers", univRouter);
 
 
 app.listen(PORT, ()=>{

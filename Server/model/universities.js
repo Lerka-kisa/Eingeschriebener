@@ -31,29 +31,23 @@ Speciality_data.init(
 );
 Entry_threshold.init(
     {
-        id_speciality:  {type: Sequelize.INTEGER, allowNull:false, references: {model: Speciality_data, key:'id'}},
-        capacity:       {type: Sequelize.INTEGER, allowNull:false},
-        ct_language:    {type: Sequelize.INTEGER, allowNull:false},
-        ct_math:        {type: Sequelize.INTEGER, allowNull:false},
-        ct_physics:     {type: Sequelize.INTEGER, allowNull:false},
-        budgetary2019:  {type: Sequelize.INTEGER, allowNull:false},
-        paid2019:       {type: Sequelize.INTEGER, allowNull:false},
-        budgetary2020:  {type: Sequelize.INTEGER, allowNull:false},
-        paid2020:       {type: Sequelize.INTEGER, allowNull:false},
-        budgetary2021:  {type: Sequelize.INTEGER, allowNull:false},
-        paid2022:       {type: Sequelize.INTEGER, allowNull:false}
+        id_speciality:          {type: Sequelize.INTEGER, allowNull:false, references: {model: Speciality_data, key:'id'}},
+        budgetary2020:          {type: Sequelize.INTEGER, allowNull:false},
+        paid2020:               {type: Sequelize.INTEGER, allowNull:false},
+        budgetary2021:          {type: Sequelize.INTEGER, allowNull:false},
+        paid2021:               {type: Sequelize.INTEGER, allowNull:false}
     },
     {sequelize, modelName:'Entry_threshold', tableName:'Entry_threshold', timestamps:false}
 );
 
-// University_data.hasMany(Faculty_data, {foreignKey: 'id_university'});
-// Faculty_data.belongsTo(University_data, {foreignKey: 'id_university'});
-//
-// Faculty_data.hasMany(Speciality_data, {foreignKey: 'id_faculty'});
-// Speciality_data.belongsTo(Faculty_data, {foreignKey: 'id_faculty'});
-//
-// Speciality_data.hasMany(Entry_threshold, {foreignKey: 'id_speciality'});
-// Entry_threshold.belongsTo(Speciality_data, {foreignKey: 'id_speciality'});
+University_data.hasMany(Faculty_data, {foreignKey: 'id_university'});
+Faculty_data.belongsTo(University_data, {foreignKey: 'id_university'});
+
+Faculty_data.hasMany(Speciality_data, {foreignKey: 'id_faculty'});
+Speciality_data.belongsTo(Faculty_data, {foreignKey: 'id_faculty'});
+
+Speciality_data.hasMany(Entry_threshold, {foreignKey: 'id_speciality'});
+Entry_threshold.belongsTo(Speciality_data, {foreignKey: 'id_speciality'});
 
 //sequelize.sync({force:true});
 

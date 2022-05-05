@@ -1,6 +1,7 @@
 const  {Sequelize, Model, sequelize} = require('./contextDB')
 const {log} = require("nodemon/lib/utils");
 const Console = require("console");
+const {University_data, Faculty_data, Speciality_data, Entry_threshold} = require("../model/universities");
 
 const Authorization_data = require("../model/authorization").Authorization_data;
 
@@ -21,13 +22,46 @@ sequelize.authenticate()
         //Auditorium_type.findAll().then(aud_types => print(aud_types));
         //Auditorium.findAll().then(aud => print(aud));
 
-        Authorization_data.findOne(
-            {
-                where: {
-                    [Sequelize.Op.and]: [{login: "Lera2", password: "zxcvbnm,"}]
-                }
-            }).then(r => Console.log(r))
+        // Authorization_data.findOne(
+        //     {
+        //         where: {
+        //             [Sequelize.Op.and]: [{login: "Lera2", password: "zxcvbnm,"}]
+        //         }
+        //     }).then(r => Console.log(r))
+        //     .catch(r => Console.log(` жопа ${r}`));
+        //
+        // University_data.findAll()
+        //     .then(r => {
+        //         console.log(r);
+        //     })
+        //
+        //     .catch(r => Console.log(` жопа ${r}`));
+        //
+        University_data.findByPk(5)
+            .then(r => {
+                console.log(r);
+            })
+
             .catch(r => Console.log(` жопа ${r}`));
+
+        ///univers/offer
+        // University_data.findAll({
+        //     include:[{
+        //         model: Faculty_data,
+        //         required: true,
+        //         include: [{
+        //             model: Speciality_data,
+        //             required: true,
+        //             include: [{
+        //                 model: Entry_threshold,
+        //                 required: true,
+        //                 where: {
+        //                     budgetary2021: {[Sequelize.Op.lte]:293}
+        //                 }
+        //             }]
+        //         }]
+        //     }]
+        // }).then(faculties => print(faculties));
 
         // Faculty.findAll({attributes:['faculty', ['faculty_name', 'Наименование факультета']]})
         //     .then(faculties => print(faculties));
@@ -82,7 +116,6 @@ sequelize.authenticate()
         // Faculty.destroy({where:{faculty:'УМllhj['}})
         //     .then(task => console.log('Result: ', task))
         //     .catch(err=>console.log('Error: ',err.message));
-
 
         // sequelize.query('select pulpit, faculty from Pulpit')
         // .then((pulpits)=>{

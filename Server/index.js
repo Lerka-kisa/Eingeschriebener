@@ -30,7 +30,7 @@ app.use((req, res, next) => {
         jwt.verify(req.cookies.accessToken, accessKey, (err, payload) => {
             if (err) {
                 res.clearCookie('accessToken');
-                res.redirect('/login');
+                res.redirect('/auth/login');
             }
             req.payload = payload;
         });
@@ -70,7 +70,7 @@ app.use("/univers", univRouter);
 
 
 app.listen(PORT, ()=>{
-    console.log(`Server listening http://localhost:${PORT}/resource`);
+    console.log(`Server listening http://localhost:${PORT}/auth/login`);
 })
     .on('Error', (err) => {
         console.log(`Error: ${err.code}`);

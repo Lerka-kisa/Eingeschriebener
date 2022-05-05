@@ -42,7 +42,7 @@ exports.login = async (req, res, next) => {
                     res.redirect('/resource');
                 }
                 catch (e) {
-                    res.redirect('/login')
+                    res.redirect('/auth/login')
                 }
             }
             break;
@@ -74,7 +74,7 @@ exports.logout = (req, res) =>
 {
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
-    res.redirect('/login');
+    res.redirect('/auth/login');
 };
 
 exports.ability = (req, res) => {

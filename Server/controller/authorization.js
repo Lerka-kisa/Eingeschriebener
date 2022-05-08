@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const path = __dirname.split('\\');
-const Authorization_data = require("../model/authorization").Authorization_data;
+const Authorization_data = require("../model/users").Authorization_data;
 const {accessKey, refreshKey} = require("../security/jwtKeys");
 const {Sequelize} = require("../model/contextDB");
 const Console = require("console");
@@ -39,7 +39,7 @@ exports.login = async (req, res, next) => {
                         sameSite: 'strict',
                         path: '/refresh-token'
                     });
-                    res.redirect('/resource');
+                    res.redirect('/belstu_fit');
                 }
                 catch (e) {
                     res.redirect('/auth/login')
@@ -74,7 +74,7 @@ exports.logout = (req, res) =>
 {
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
-    res.redirect('/auth/login');
+    res.redirect('/belstu_fit');
 };
 
 exports.ability = (req, res) => {

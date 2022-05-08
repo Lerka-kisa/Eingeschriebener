@@ -1,2 +1,2 @@
 # Project exclude paths
-/Server/node_modules/
+/Server/node_modules/!/Server/security/certificate/

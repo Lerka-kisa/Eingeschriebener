@@ -1,0 +1,22 @@
+{{>header}}
+<div class="search">
+    {{>search}}
+</div>
+{{>footer}}
+
+<style>
+    header {
+        background: #E9723D;
+    }
+
+    .search {
+        /* Выставляем отступ с высотой footer и header */
+        min-height: calc(100vh - 20px - 20px);
+        background: #F4D75E;
+    }
+
+    footer {
+        /* Высота footer */
+        height: 20px;
+        background: #0B7FAB;
+    }</style>

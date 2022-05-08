@@ -1,0 +1,43 @@
+<div id="container__form" class="container__form">
+    <div id="container__form__message">Привет!!! Я могу помочь тебе выбрать универ, для получения образования в IT</div>
+    <label for="math">Математика:
+        <input class="container__form__input" id="math" type="number" max="100" min="0" name="math" placeholder="0" value="0" required>
+    </label>
+
+    <label for="Physics"> Физика:
+        <input class="container__form__input"  id="physics" type="number" max="100" min="0" name="physics" placeholder="0" value="0" required>
+    </label>
+
+    <label for="Language"> Русский/белорусский:
+        <input class="container__form__input"  id="language" type="number" max="100" min="0" name="language" placeholder="0" value="0" required>
+    </label>
+
+    <label for="Certificate"> Балл за аттестат:
+        <input class="container__form__input"  id="certificate" type="number" max="100" min="0" name="certificate" placeholder="0" required value="0">
+    </label>
+
+    <div id="contractChoice1">
+    <input class="container__form__input__radio" type="radio"
+           name="contact" value="budgetary" required checked>
+    <label for="contactChoice1">Бюджет</label>
+    </div>
+
+    <div id="contractChoice2">
+    <input class="container__form__input__radio" type="radio"
+           name="contact" value="paid" required >
+    <label for="contactChoice2" >Платная</label>
+    </div>
+
+    <input id="choice" type="button" name="offer" onclick="send()" value="Подобрать">
+
+
+    <input id="choice_all" type="button" name="offer" onclick="getAll()" value="Все универы">
+
+</div>
+
+<!--TODO output -->
+<button onclick="pizdec()">Press here</button>
+<div id="container__list">
+
+</div>
+<script src="/js/search.js"></script>

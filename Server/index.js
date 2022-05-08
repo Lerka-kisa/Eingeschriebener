@@ -1,9 +1,9 @@
 //require('dotenv').config()
-const app = require('express')()
+const {engine} = require('express-handlebars');
 // const cors = require('cors')
 // const parser = require('cookie-parser')
 const Sequelize = require('sequelize')
-
+const https = require('https')
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
@@ -11,13 +11,30 @@ const {accessKey} = require("./security/jwtKeys");
 const {Guest} = require("./security/roles");
 const {GetAbilityFor} = require("./security/privilegies");
 
-//const apiController = require("./route/api");
 const express = require("express");
+const app = express()
 const authRouter = require("./route/auth");
 const univRouter = require("./route/univ");
+const fitRouter = require("./route/fit");
+const fs = require("fs");
+
 //const adminRouter = require("./route/admin");
 
 const PORT = process.env.PORT || 5000;
+//const PORT = process.env.PORT || 443; //TODO https
+
+let options = {
+    key: fs.readFileSync('./security/certificate/RS-Eingeschriebener-RSA.key').toString(),
+    cert: fs.readFileSync('./security/certificate/RS-Eingeschriebener.crt').toString()
+};
+
+app.engine('handlebars', engine( {
+    extname: 'hbs',
+    defaultLayout: 'main',
+    layoutsDir: __dirname + '/views/layouts/',
+    partialsDir: __dirname + '/views/partials/'
+} ));
+app.set('view engine', 'handlebars');
 
 app.use(express.static("public"));
 app.use(cookieParser("cookie_key"));
@@ -50,27 +67,24 @@ app.get('/resource', (req, res) =>
         res.status(401).send('To access the resource, you need to log in');
 });
 
-
-
-/***
- * роуты все ниже остального кода, никуда не пересноси
- * специфичные адреса выше чем менее специфичные то есть:
- *  /api/users
- *  /api
- *  /login
- *  /
- *  ^^^ так, надеюсь знаешь
- */
-
 // app.use("/user", userRouter);
 // app.use("/admin", adminRouter);
 // app.use("/home", homeRouter);
 app.use("/auth", authRouter);
 app.use("/univers", univRouter);
+app.use("/belstu_fit", fitRouter);
 
+
+
+/*https.createServer(options, app).listen(PORT, ()=>{
+    console.log(`Server listening http://localhost:${PORT}/belstu_fit`);
+})
+    .on('Error', (err) => {
+        console.log(`Error: ${err.code}`);
+    })*/ //TODO https
 
 app.listen(PORT, ()=>{
-    console.log(`Server listening http://localhost:${PORT}/auth/login`);
+    console.log(`Server listening http://localhost:${PORT}/univers/startpage`);
 })
     .on('Error', (err) => {
         console.log(`Error: ${err.code}`);

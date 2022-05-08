@@ -3,7 +3,7 @@ const {log} = require("nodemon/lib/utils");
 const Console = require("console");
 const {University_data, Faculty_data, Speciality_data, Entry_threshold} = require("../model/universities");
 
-const Authorization_data = require("../model/authorization").Authorization_data;
+const Authorization_data = require("./users").Authorization_data;
 
 const print = (p) => {
     let k = 0;

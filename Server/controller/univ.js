@@ -4,13 +4,19 @@ const {University_data, Entry_threshold, Faculty_data, Speciality_data} = requir
 const {accessKey, refreshKey} = require("../security/jwtKeys");
 const {Sequelize} = require("../model/contextDB");
 const Console = require("console");
+const {GetAllUnivers, GetAllUnivers_paid} = require("../db");
 
 path.pop();
 
 exports.startpage = async (req, res, next) => {
     switch (req.method) {
         case "GET":
-            res.sendFile(path.join("\\") + "\\views\\startpage.html");
+            res.render(
+                'kudapostupatMain',
+                {
+                    title: "Search univers",
+                    css: `<link rel='stylesheet' href='/css/search.css'>`
+                });
             break;
         default:
             res.statusCode = 405;
@@ -22,10 +28,15 @@ exports.startpage = async (req, res, next) => {
 exports.offer = (req, res, next) => {
     switch (req.method) {
         case "GET":
-            //res.send("Тут будет сендфайл")
-            //res.sendFile(path.join("\\") + "\\views\\register.html");
-
-            University_data.findAll()
+            //GetAllUnivers()
+            University_data.findAll({
+                attributes:["id","full_name"],
+                include:[{
+                    model: Faculty_data,
+                    required: true,
+                    attributes:["name"]
+                }]
+            })
                 .then(r => {
                     res.status(200).json(r);
                 })
@@ -38,14 +49,13 @@ exports.offer = (req, res, next) => {
 
             let total = math + phys + lan + att + 15
 
-            //
             if(req.body.contact === "budgetary"){
                 University_data.findAll({
-                    attributes:["name", "full_name", "link"],
+                    attributes:["id","full_name"],
                     include:[{
                         model: Faculty_data,
                         required: true,
-                        attributes:[],
+                        attributes:["name"],
                         include: [{
                             model: Speciality_data,
                             required: true,
@@ -62,30 +72,21 @@ exports.offer = (req, res, next) => {
                     }]
                 })
                     .then(r => {
-                        if (r.length == 0){
-                            res.status(200).send("Возможно в этом году, у тебя не выйдет поступить в IT на бюджетной основе, либо рассмотри вариант платного обучения, либо ждём тебя в следующем году)))");
+                        if (r.length === 0){
+                            res.status(200).send({error: "Возможно в этом году, у тебя не выйдет поступить в IT на бюджетной основе, либо рассмотри вариант платного обучения, либо ждём тебя в следующем году)))"});
                         }
                         else{
-                            // let k =""
-                            // for(let i = 0; i<r.length;i++){
-                            //     console.log(r[i])
-                            //     let univer = JSON.parse(JSON.stringify(r[i]))
-                            //     k = k + univer.link + "\n"
-                            //     console.log("----------------")
-                            // }
-
                             res.status(200).json(r);
-                            //res.status(200).send(k);
                         }
                     })
             }
             else{
                 University_data.findAll({
-                    attributes:["name", "full_name", "link"],
+                    attributes:["id","full_name"],
                     include:[{
                         model: Faculty_data,
                         required: true,
-                        attributes:[],
+                        attributes:["name"],
                         include: [{
                             model: Speciality_data,
                             required: true,
@@ -101,9 +102,10 @@ exports.offer = (req, res, next) => {
                         }]
                     }]
                 })
+                //GetAllUnivers_paid(total)
                     .then(r => {
                         if (r.length == 0){
-                            res.status(200).send("Возможно в этом году, у тебя не выйдет поступить в IT на платной основе, ждём тебя в следующем году)))");
+                            res.status(200).send({error: "Возможно в этом году, у тебя не выйдет поступить в IT на платной основе, ждём тебя в следующем году)))"});
                         }
                         else{
                             res.status(200).json(r);
@@ -120,14 +122,32 @@ exports.offer = (req, res, next) => {
 exports.offerById = (req, res, next) => {
     switch (req.method) {
         case "GET":
-            //нужно тут проверять на отсутствие на какой-либо параметр
             let id = parseInt(req.params.id)
-            University_data.findByPk(id)
+            University_data.findAll({
+                where: {id: id},
+                attributes:["full_name", "link"],
+                include:[{
+                    model: Faculty_data,
+                    required: true,
+                    attributes:["name"],
+                    include: [{
+                        model: Speciality_data,
+                        required: true,
+                        attributes:["full_name","specification"],
+                        include: [{
+                            model: Entry_threshold,
+                            attributes:["budgetary2020","paid2020","budgetary2021","paid2021"],
+                            required: true
+                        }]
+                    }]
+                }]
+            })
                 .then(r => {
                     if (r == null){
-                        res.statusCode = 404;
+                        res.status(404).send({error: "Data not found"})
+/*                        res.statusCode = 404;
                         res.messageerror = "Data not found";
-                        res.end();
+                        res.end();*/
                     }
                     else{
                         res.status(200).json(r);

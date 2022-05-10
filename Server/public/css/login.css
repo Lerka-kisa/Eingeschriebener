@@ -52,8 +52,8 @@ input:focus {
 
 button {
     float:right;
-    height: 121px;
-    width: 50px;
+    height: 40px;
+    width: 100px;
     border: 0px;
     background: #0B7FAB;
     border-radius:7px;

@@ -4,13 +4,22 @@ const Authorization_data = require("../model/users").Authorization_data;
 const {accessKey, refreshKey} = require("../security/jwtKeys");
 const {Sequelize} = require("../model/contextDB");
 const Console = require("console");
+const fs = require('fs')
 
 path.pop();
 
 exports.login = async (req, res, next) => {
     switch (req.method) {
         case "GET":
-            res.sendFile(path.join("\\") + "\\views\\index.html");
+            res.render(
+                'belstuFitAuthorization',
+                {
+                    title: "Authorization",
+                    css: `<link rel='stylesheet' href='/css/login.css'>`//TODO CSS
+                });
+            //res.sendFile(path.join("\\") + "\\views\\index.html");
+            //fs.createReadStream("\\views\\login.txt").pipe(res)
+            //res.sendFile(path.join("\\") + "\\views\\login.txt")
             break;
         case "POST":
             if(req.body.login && req.body.password) {
@@ -39,10 +48,13 @@ exports.login = async (req, res, next) => {
                         sameSite: 'strict',
                         path: '/refresh-token'
                     });
-                    res.redirect('/belstu_fit');
+                    //res.redirect('/belstu_fit');
+                    res.status(200).json({error: "ok"})
                 }
                 catch (e) {
-                    res.redirect('/auth/login')
+                    //res.redirect('/auth/login')
+                    res.status(200).json({error: "not ok"})
+                    //document.getElementById("errorInput").innerHTML = "дщдщд";
                 }
             }
             break;
@@ -56,11 +68,17 @@ exports.login = async (req, res, next) => {
 exports.register = (req, res, next) => {
     switch (req.method) {
         case "GET":
-            res.sendFile(path.join("\\") + "\\views\\register.html");
+            res.render(
+                'belstuFitRegistration',
+                {
+                    title: "Registration",
+                    css: `<link rel='stylesheet' href='/css/login.css'>`//TODO CSS
+                });
+            //res.sendFile(path.join("\\") + "\\views\\register.html");
             break;
         case "POST":
-            Authorization_data.create({login: req.body.login,  password: req.body.password, mail: req.body.mail, role: 'ENROLLEE'})
-                .then(() => res.send("Registration is successful"))
+            Authorization_data.create({login: req.body.login,  password: req.body.password, role: 'ENROLLEE'})
+                .then(() => res.redirect('/auth/login'))
                 .catch(err =>  res.send(err.message));
             break;
         default:

@@ -1,5 +1,5 @@
 <div id="container__form" class="container__form">
-    <div id="container__form__message">Привет!!! Я могу помочь тебе выбрать универ, для получения образования в IT</div>
+    <div id="container__form__message">Привет!!! Я могу помочь тебе выбрать универ, для получения образования в сфере IT</div>
     <label for="math">Математика:
         <input class="container__form__input" id="math" type="number" max="100" min="0" name="math" placeholder="0" value="0" required>
     </label>
@@ -28,15 +28,13 @@
     <label for="contactChoice2" >Платная</label>
     </div>
 
-    <input id="choice" type="button" name="offer" onclick="send()" value="Подобрать">
+    <button id="choice" onclick="send()">Подобрать</button>
 
-
-    <input id="choice_all" type="button" name="offer" onclick="getAll()" value="Все универы">
+    <button id="choice_all" onclick="getAll()">Все универы</button>
 
 </div>
 
 <!--TODO output -->
-<button onclick="pizdec()">Press here</button>
 <div id="container__list">
 
 </div>

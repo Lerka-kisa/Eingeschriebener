@@ -2,6 +2,8 @@ const  {Sequelize, Model, sequelize} = require('./contextDB')
 const {log} = require("nodemon/lib/utils");
 const Console = require("console");
 const {University_data, Faculty_data, Speciality_data, Entry_threshold} = require("../model/universities");
+const {Users_data, Users_marks} = require("../model/users");
+const json = require("body-parser/lib/types/json");
 
 const Authorization_data = require("./users").Authorization_data;
 
@@ -22,14 +24,20 @@ sequelize.authenticate()
         //Auditorium_type.findAll().then(aud_types => print(aud_types));
         //Auditorium.findAll().then(aud => print(aud));
 
-        // Authorization_data.findOne(
+        // let a = Authorization_data.findOne(
         //     {
         //         where: {
-        //             [Sequelize.Op.and]: [{login: "Lera2", password: "zxcvbnm,"}]
+        //             [Sequelize.Op.and]: [{login: "user", password: "12345678"}]
         //         }
-        //     }).then(r => Console.log(r))
-        //     .catch(r => Console.log(` жопа ${r}`));
-        //
+        //     })/*.then(r => {
+        //         if(r === null){
+        //             console.log("NUUUUUUUULLLLLLL")
+        //         }
+        // })*/
+        //     // .catch(r => Console.log(` жопа ${r}`));
+        // console.log(a.then(r => {
+        //     console.log(r.id)}))
+
         // University_data.findAll()
         //     .then(r => {
         //         console.log(r);
@@ -37,12 +45,43 @@ sequelize.authenticate()
         //
         //     .catch(r => Console.log(` жопа ${r}`));
         //
-        University_data.findByPk(5)
+        Users_data.findAll({
+            where: {
+                id_auth: 2
+            },
+            include:[{
+                model: Users_marks,
+                required: true
+            }]
+        })
             .then(r => {
-                console.log(r);
+                if(r.length === 0){
+                    console.log("NNNNUUUUUUULLLLLLLLLLLL")
+                }
+                console.log("KKKKKKKKKKKKKKKKKKKK");
             })
-
-            .catch(r => Console.log(` жопа ${r}`));
+            .catch(r => Console.log(`OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ${r}`));
+        // //
+        // Users_data.create({
+        //     id_auth: 1,
+        //     name: "name",
+        //     surname:"surname",
+        //     middle_name:"middle_name",
+        //     address:"address",
+        //     date_of_birth:"2002-01-20",
+        //     mail: "mail",
+        //     number: "phonenumber"
+        // })
+        //     .then((r) => {
+        //         console.log(r.dataValues.id);
+        //         Users_marks.create({id_user: r.dataValues.id, math:0, phys:0, lang:0, att:0})
+        //             .then(() => {
+        //                 console.log("All norm)))")
+        //             })
+        //             .catch(err =>  console.log(err.message + "user marks"))
+        //         console.log("Add info is successful")
+        //     })
+        //     .catch(r => Console.log(` жопа ${r}`));
 
         ///univers/offer
         // University_data.findAll({

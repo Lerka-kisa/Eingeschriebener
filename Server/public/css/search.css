@@ -21,6 +21,7 @@
 body {
     background: #F4D75E;
     font-family: 'Roboto', sans-serif;
+    font-size: 18px;
 }
 
 .main_div {
@@ -99,10 +100,10 @@ input:focus::-webkit-input-placeholder {
 #container__form{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 2fr 0.5fr 1fr 1fr auto;
+    grid-template-rows: 2fr 0.5fr 0.5fr 0.8fr auto;
     grid-template-areas: ' message message message message '
                          ' math physics language certificate '
-                         ' choice1 . . choice2 '
+                         ' . choice1 choice2 . '
                          ' but1 but1 but2 but2 '
                          ' list list list list ';
     width: 80%;
@@ -112,9 +113,15 @@ input:focus::-webkit-input-placeholder {
     grid-gap: 10px;
 }
 #container__form__message{
+    padding-top: 60px;
+    padding-bottom: 40px;
     grid-area: message;
     font-size: xxx-large;
     text-align: center;
+}
+
+#name__marks{
+    font-size: 100px;
 }
 
 #math{
@@ -174,4 +181,15 @@ input:focus::-webkit-input-placeholder {
 .container__list__univer{
     margin-bottom: 5px;
     margin-left: 5%;
+}
+
+.add_info_submit{
+    height: 70px;
+    width: 100px;
+    border: 0px;
+    background: #0B7FAB;
+    border-radius:7px;
+    padding: 10px;
+    color:white;
+    font-size:22px;
 }

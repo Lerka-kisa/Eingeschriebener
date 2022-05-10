@@ -69,6 +69,7 @@ const getUniver = (id) => {
         .then(result => {
             if(result.error){
                 console.log(result.error)
+                document.getElementsByClassName("search")[0].innerHTML = `<div class="info__univer">К сожалению про этот универ мы ещё не всё узнали</div>`
             }else {
                 //console.log(result)
                 document.getElementsByClassName("search")[0].innerHTML = builderUniverPage(result)
@@ -88,6 +89,7 @@ const builderList = (json) => {
         })
         list += `</div>`
     })
+    console.log(list)
     return list
 }
 

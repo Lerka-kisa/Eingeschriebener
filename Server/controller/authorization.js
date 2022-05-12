@@ -72,7 +72,7 @@ exports.register = (req, res, next) => {
                 'belstuFitRegistration',
                 {
                     title: "Registration",
-                    css: `<link rel='stylesheet' href='/css/login.css'>`//TODO CSS
+                    css: `<link rel='stylesheet' href='/css/register.css'>`
                 });
             //res.sendFile(path.join("\\") + "\\views\\register.html");
             break;

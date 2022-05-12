@@ -19,6 +19,7 @@
     "express-handlebars": "^6.0.5",
     "express-session": "^1.17.2",
     "jsonwebtoken": "^8.5.1",
+    "mariadb": "^3.0.0",
     "msnodesqlv8": "^2.4.7",
     "mssql": "^8.1.0",
     "passport-local": "^1.0.0",

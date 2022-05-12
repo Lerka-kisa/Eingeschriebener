@@ -12,29 +12,23 @@
     box-sizing: border-box;
 }
 
-
-h2 {
-    color:rgba(255,255,255,.8);
-    margin-left:12px;
-}
-
 body {
-    background: #F4D75E;
+/*    background: #F4D75E;*/
     font-family: 'Roboto', sans-serif;
 }
 
-.main_div {
+/*.main_div {
     position:relative;
     vertical-align: center;
     margin: 50px auto;
     width: 380px;
     height: auto;
-}
+}*/
 
-input {
+/*input {
     padding: 16px;
     border-radius:7px;
-    border:0px;
+    border:0;
     background: rgba(255,255,255,.2);
     display: block;
     margin: 15px;
@@ -42,44 +36,57 @@ input {
     color:white;
     font-size:18px;
     height: 54px;
-}
+}*/
 
+/*
 input:focus {
     outline-color: rgba(0,0,0,0);
     background: rgba(255,255,255,.95);
-    color: #0B7FAB;
+    color: #000000;
 }
-
+*/
+/*
 button {
     float:right;
     height: 40px;
     width: 100px;
-    border: 0px;
+    border: 0;
     background: #0B7FAB;
     border-radius:7px;
-    padding: 10px;
     color:white;
     font-size:22px;
-}
+}*/
 
-.inputUserIcon {
+/*.inputUserIcon {
     position:absolute;
     top:68px;
     right: 80px;
     color:white;
-}
+}*/
 
-.inputPassIcon {
+/*.inputPassIcon {
     position:absolute;
     top:136px;
     right: 80px;
     color:white;
+}*/
+
+.authorization {
+    width: 400px;
+    height: 320px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(122,122,122, 70%);
+    border: 2px white solid;
+    padding: 10px;
 }
 
-input::-webkit-input-placeholder {
+.authorization-header{
+    font-size: 30px;
     color: white;
-}
-
-input:focus::-webkit-input-placeholder {
-    color: #0B7FAB;
+    font-weight: bold;
 }

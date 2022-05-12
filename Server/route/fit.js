@@ -7,6 +7,7 @@ router.use("/userinfo/add", fitController.addInfo);
 router.use("/userinfo/marks", fitController.addMarks);
 router.use("/userinfo/data", fitController.userinfodata);
 router.use("/userinfo", fitController.userinfo);
+router.use("/getrating", fitController.getrating);
 router.use("/", fitController.mainPage);
 
 module.exports = router;

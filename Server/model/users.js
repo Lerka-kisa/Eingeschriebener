@@ -28,23 +28,23 @@ Users_data.init(
 );
 Users_marks.init(
     {
-        id_user:        {type: Sequelize.INTEGER,   allowNull:false, references: {model: Users_data, key:'id'}},
-        math:        {type: Sequelize.INTEGER,    allowNull:true},
-        phys:           {type: Sequelize.INTEGER,    allowNull:true},
-        lang:    {type: Sequelize.INTEGER,    allowNull:true},
-        att:  {type: Sequelize.INTEGER,  allowNull:true}
+        id_user:    {type: Sequelize.INTEGER,   allowNull:false, references: {model: Users_data, key:'id'}},
+        math:       {type: Sequelize.INTEGER,   allowNull:true},
+        phys:       {type: Sequelize.INTEGER,   allowNull:true},
+        lang:       {type: Sequelize.INTEGER,   allowNull:true},
+        att:        {type: Sequelize.INTEGER,   allowNull:true}
     },
     {sequelize, modelName:'Users_marks', tableName:'Users_marks', timestamps:false}
 );
 
 Overall_rating.init(
     {
-            id_user:        {type: Sequelize.INTEGER,   allowNull:false, unique:true, references: {model: Users_data, key:'id'}},
-            sum:        {type: Sequelize.INTEGER,    allowNull:true},
-            POIT:        {type: Sequelize.INTEGER,    allowNull:true},
-            ISIT:        {type: Sequelize.INTEGER,    allowNull:true},
-            POIBMS:        {type: Sequelize.INTEGER,    allowNull:true},
-            DEIVI:        {type: Sequelize.INTEGER,    allowNull:true}
+        id_user:    {type: Sequelize.INTEGER,    allowNull:false, unique:true, references: {model: Users_data, key:'id'}},
+        sum:        {type: Sequelize.INTEGER,    allowNull:true},
+        POIT:       {type: Sequelize.INTEGER,    allowNull:true},
+        ISIT:       {type: Sequelize.INTEGER,    allowNull:true},
+        POIBMS:     {type: Sequelize.INTEGER,    allowNull:true},
+        DEIVI:      {type: Sequelize.INTEGER,    allowNull:true}
     },
     {sequelize, modelName:'Overall_rating', tableName:'Overall_rating', timestamps:false}
 )

@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const Error  = require("../Error");
 const path = __dirname.split('\\');
 const {University_data, Entry_threshold, Faculty_data, Speciality_data} = require("../model/universities");
-const {Users_data, Users_marks, Authorization_data} = require("../model/users")
+const {Users_data, Users_marks, Authorization_data, Overall_rating} = require("../model/users")
 const {accessKey, refreshKey} = require("../security/jwtKeys");
 const {Sequelize} = require("../model/contextDB");
 const {admin, enrollee, guest, rule} = require("../security/defines");
@@ -166,6 +166,31 @@ exports.addMarks = async (req, res, next) => {
             Users_data.create({id_auth: req.payload.id, name: name,  surname:surname, middle_name:middle_name, city:city, address:address, date_of_birth:birthday})
                 .then(() => res.send("Add info is successful"))
                 .catch(err =>  res.send(err.message));
+            break;
+            // res.status(200).send("Eee");
+            // break;
+        default:
+            res.statusCode = 405;
+            res.messageerror = "Method not allowed";
+            res.end();
+    }
+}
+exports.getrating = async (req, res, next) => {
+    switch (req.method) {
+        case "GET":
+            Overall_rating.findAll(
+                {
+                    attributes:['sum','POIT','ISIT','POIBMS','DEIVI']
+                }
+            )
+                .then(r => {
+
+                    //res.send("Add info is successful")
+                    res.status(200).json(r)
+                })
+                .catch(err =>  {
+                    res.status(200).json({error:"No data"})
+                });
             break;
             // res.status(200).send("Eee");
             // break;

@@ -42,3 +42,100 @@
 //     list += `</div>`
 // })
 
+
+const GetRating = () => {
+    fetch("http://localhost:5000/belstu_fit/getrating", /*TODO link*/{
+        method : 'GET',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        }
+    }).then(response => {return response.json()})
+        .then(result => {
+            if(result.error){
+                console.log("Dura")
+                //window.location.href = '/belstu_fit/userinfo/add'
+            }
+            else {
+                console.log(result)
+                //monitoring(result)
+                document.getElementById("monitoring").innerHTML = monitoring(result)
+            }
+        })
+}
+GetRating()
+const monitoring = (json) => {
+    let a = 0;
+    let min = 61;
+    let POIT = []
+    for(let i=0; i<=40 ;i++){
+        POIT[i] = 0
+    }
+    let ISIT = []
+    for(let i=0; i<=40 ;i++){
+        ISIT[i] = 0
+    }
+    let POIBMS = []
+    for(let i=0; i<=40 ;i++){
+        POIBMS[i] = 0
+    }
+    let DEIVI = []
+    for(let i=0; i<=40 ;i++){
+        DEIVI[i] = 0
+    }
+    json.forEach(chel => {
+        chel.sum--
+        a = Math.floor(chel.sum/10)
+        if (chel.POIT ===1){
+            POIT[a]++
+        }
+        if (chel.ISIT ===1){
+            ISIT[a]++
+        }
+        if (chel.POIBMS ===1){
+            POIBMS[a]++
+        }
+        if (chel.DEIVI ===1){
+            DEIVI[a]++
+        }
+    })
+    console.log(POIT)
+    console.log(ISIT)
+    console.log(POIBMS)
+    console.log(DEIVI)
+
+    let list = `<div id="belstu__monitoring">Мониторинг:
+                <table id="belstu__monitoring__table" style="border-collapse: collapse;">
+                    <tr>
+                        <th>Cпецуха</th>`
+    for(let i=min; i<401 ;i = i + 10){
+        list += `<th>${i}-${i+9}</th>\n`
+    }
+    list += `</tr>
+            <tr>
+                <td>ПОИТ</td>`
+    for(let i=Math.floor(min/10); i<40 ;i++){
+        list += `<th>${POIT[i]}</th>\n`
+    }
+    list += `</tr>
+            <tr>
+                <td>ИСиТ</td>`
+    for(let i=Math.floor(min/10); i<40 ;i++){
+        list += `<th>${ISIT[i]}</th>\n`
+    }
+    list += `</tr>
+            <tr>
+                <td>ПОИБМС</td>`
+    for(let i=Math.floor(min/10); i<40 ;i++){
+        list += `<th>${POIBMS[i]}</th>\n`
+    }
+    list += `</tr>
+            <tr>
+                <td>ДЭиВИ</td>`
+    for(let i=Math.floor(min/10); i<40 ;i++){
+        list += `<th>${DEIVI[i]}</th>\n`
+    }
+    list +=`</tr></table>`
+    list +=`</div>`
+    //console.log(list)
+    return list
+}

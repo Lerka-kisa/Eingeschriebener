@@ -45,22 +45,49 @@ sequelize.authenticate()
         //
         //     .catch(r => Console.log(` жопа ${r}`));
         //
-        Users_data.findAll({
+        // Users_data.findOne({
+        //     where: {
+        //         id_auth: 1
+        //     }
+        // }).then(r => {
+        //     console.log(r.id)
+        // })
+        let sum = ""
+        Users_data.findOne({
             where: {
-                id_auth: 2
+                id_auth: 1
             },
-            include:[{
+            attributes:[],
+            include: [{
                 model: Users_marks,
-                required: true
-            }]
-        })
-            .then(r => {
-                if(r.length === 0){
-                    console.log("NNNNUUUUUUULLLLLLLLLLLL")
-                }
-                console.log("KKKKKKKKKKKKKKKKKKKK");
+                attributes:[],
+                required: true,
+                attributes:["math","phys","lang","att"]
+            }]}).then(r => {
+            r.Users_marks.forEach(m => {
+                sum += m.math + m.phys + m.lang +m.att
             })
-            .catch(r => Console.log(`OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ${r}`));
+            console.log(sum)
+        })
+
+        //     .catch(r => Console.log(`OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ${r}`));
+        //
+        // Users_data.findAll({
+        //     where: {
+        //         id_auth: 2
+        //     },
+        //     include:[{
+        //         model: Users_marks,
+        //         required: true
+        //     }]
+        // })
+        //     .then(r => {
+        //         if(r.length === 0){
+        //             console.log("NNNNUUUUUUULLLLLLLLLLLL")
+        //         }
+        //         console.log("KKKKKKKKKKKKKKKKKKKK");
+        //     })
+        //     .catch(r => Console.log(`OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ${r}`));
         // //
         // Users_data.create({
         //     id_auth: 1,

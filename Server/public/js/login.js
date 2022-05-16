@@ -73,6 +73,7 @@
                     if(result.error === "not ok"){
                         //console.log("kok")
                         document.getElementById("errorInput").innerHTML = "Неверный логин или пароль";
+                        document.getElementsById("errorInput")[0].style.borderColor = "red";
                     }
                     if(result.error === "ok"){
                         console.log("lpl")

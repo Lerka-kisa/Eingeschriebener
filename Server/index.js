@@ -84,7 +84,8 @@ app.use("/belstu_fit", fitRouter);
     })*/ //TODO https
 
 app.listen(PORT, ()=>{
-    console.log(`Server listening http://localhost:${PORT}/univers/startpage`);
+    //console.log(`Server listening http://localhost:${PORT}/univers/startpage`);
+    console.log(`Server listening http://localhost:5000/belstu_fit`);
 })
     .on('Error', (err) => {
         console.log(`Error: ${err.code}`);

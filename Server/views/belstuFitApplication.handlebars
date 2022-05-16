@@ -1,0 +1,23 @@
+{{>header_belstu_authorization}}
+<div class="filing_an_application">
+    {{>filing_an_application}}
+</div>
+{{>footer}}
+
+<style>
+    header {
+        background: #E9723D;
+    }
+
+    .filing_an_application {
+        /* Выставляем отступ с высотой footer и header */
+        min-height: calc(100vh - 17px - 65px);
+        background: #F4D75E;
+    }
+
+    footer {
+        /* Высота footer */
+        height: 20px;
+        background: #0B7FAB;
+    }
+</style>

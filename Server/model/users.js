@@ -40,11 +40,14 @@ Users_marks.init(
 Overall_rating.init(
     {
         id_user:    {type: Sequelize.INTEGER,    allowNull:false, unique:true, references: {model: Users_data, key:'id'}},
-        sum:        {type: Sequelize.INTEGER,    allowNull:true},
+        file_number:{type: Sequelize.STRING,     allowNull:true},
+        sum:        {type: Sequelize.INTEGER,    allowNull:false},
         POIT:       {type: Sequelize.INTEGER,    allowNull:true},
         ISIT:       {type: Sequelize.INTEGER,    allowNull:true},
         POIBMS:     {type: Sequelize.INTEGER,    allowNull:true},
-        DEIVI:      {type: Sequelize.INTEGER,    allowNull:true}
+        DEIVI:      {type: Sequelize.INTEGER,    allowNull:true},
+        contract:   {type: Sequelize.STRING,     allowNull:false},
+        confirm:    {type: Sequelize.BOOLEAN,    allowNull:false}
     },
     {sequelize, modelName:'Overall_rating', tableName:'Overall_rating', timestamps:false}
 )

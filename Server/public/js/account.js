@@ -242,14 +242,14 @@ const userData = (jsonArr) => {
 }
 const changeMarks = () => {
     //require('fs').readFile("../../views/usersMarks.html", "utf8", text =>{
-        //document.getElementById("userinfo__marks").innerHTML = text
+    //document.getElementById("userinfo__marks").innerHTML = text
     //})
     document.getElementById("userinfo__marks").innerHTML = changeMarksList
 
 }
 const changePriority = () => {
     //require('fs').readFile("../../views/usersMarks.html", "utf8", text =>{
-        //document.getElementById("userinfo__marks").innerHTML = text
+    //document.getElementById("userinfo__marks").innerHTML = text
     //})
     document.getElementById("your_application").innerHTML = changeApplicationList
 

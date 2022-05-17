@@ -197,8 +197,8 @@ exports.addInfo = async (req, res, next) => {
                 })
                 .catch(err =>  res.send(err.message));
             break;
-            // res.status(200).send("Eee");
-            // break;
+        // res.status(200).send("Eee");
+        // break;
         default:
             res.statusCode = 405;
             res.messageerror = "Method not allowed";
@@ -252,8 +252,8 @@ exports.updMarks = async (req, res, next) => {
             //     .then(() => res.send("Add info is successful"))
             //     .catch(err =>  res.send(err.message));
             break;
-            // res.status(200).send("Eee");
-            // break;
+        // res.status(200).send("Eee");
+        // break;
         default:
             res.statusCode = 405;
             res.messageerror = "Method not allowed";
@@ -296,8 +296,8 @@ exports.filing = async (req, res, next) => {
                 break
             }
 
-            //res.sendFile(path.join("\\") + "\\views\\addInfoUser.html");
-            //break;
+        //res.sendFile(path.join("\\") + "\\views\\addInfoUser.html");
+        //break;
         case "POST":
             let poit = req.body.priority_poit
             let isit = req.body.priority_isit
@@ -378,12 +378,12 @@ exports.changeFiling = async (req, res, next) => {
                 id_user = r.id
                 //console.log(sum + " " + id_user)
                 Overall_rating.update({
-                    POIT:poit,
-                    ISIT:isit,
-                    POIBMS:poibms,
-                    DEIVI:deivi,
-                    confirm:false
-                },
+                        POIT:poit,
+                        ISIT:isit,
+                        POIBMS:poibms,
+                        DEIVI:deivi,
+                        confirm:false
+                    },
                     {where: {id_user: r.id}
                     })
                     .then(() => {

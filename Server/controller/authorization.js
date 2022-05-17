@@ -30,7 +30,7 @@ exports.login = async (req, res, next) => {
                                 [Sequelize.Op.and]:[{ login: req.body.login, password: req.body.password }]
                             }
                         })//.then(r => Console.log(r))
-                        //.catch(r => Console.log(` жопа ${r}`));
+                    //.catch(r => Console.log(` жопа ${r}`));
 
                     const accessToken = jwt.sign({id: auth.id, login: auth.login, role: auth.role}, accessKey, {expiresIn: 3600});
                     const refreshToken = jwt.sign({id: auth.id, login: auth.login, role: auth.role}, refreshKey, {expiresIn: 24 * 3600});
@@ -72,7 +72,7 @@ exports.register = (req, res, next) => {
                 'belstuFitRegistration',
                 {
                     title: "Registration",
-                    css: `<link rel='stylesheet' href='/css/register.css'>`
+                    css: `<link rel='stylesheet' href='/css/login.css'>`//TODO CSS
                 });
             //res.sendFile(path.join("\\") + "\\views\\register.html");
             break;

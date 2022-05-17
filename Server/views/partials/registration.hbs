@@ -1,23 +1,19 @@
-<div class="authorization">
+<div id="authorization">
     <form name="auth" action="register" method="POST">
-        <div class="authorization-header col s6 center">
-            Регистрация
-        </div>
-        <hr>
-        <div class="input-field col s6">
-        <label class="white-text" for="login">Login:</label>
-        <input class="white-text validate" id="login" type="text" name="login" required onkeyup="checkLogin(this.value)">
-        </div>
+        <label for="login">Login: </label>
+        <label>
+            <input id="login" type="text" name="login" placeholder="Login" required onkeyup="checkLogin(this.value)">
+        </label>
 
-        <div class="input-field col s6">
-            <label class="white-text" for="password">Password: </label>
-            <input class="white-text validate" id="password" type="password" name="password" onkeyup="checkPassword(this.value)">
-        </div>
+        <p>
+            <label for="password">Password: </label>
+            <input id="password" type="password" name="password" placeholder="Password" onkeyup="checkPassword(this.value)">
+        </p>
 
-        <div class="input-field col s6">
-            <label class="white-text" for="password">Repeat password: </label>
-            <input class="white-text validate" id="repeat" type="password" name="repeat" onkeyup="checkRepeat(this.value)">
-        </div>
+        <p>
+            <label for="password">Repeat password: </label>
+            <input id="repeat" type="password" name="repeat" placeholder="Password" class="showPassword" onkeyup="checkRepeat(this.value)">
+        </p>
 
         <div id="serving">
             <p id="errorInput"></p>
@@ -25,14 +21,11 @@
         </div>
 
         <input type="hidden" name="inputHide" />
-        <button class="btn waves-effect waves-light" type="button" name="sign" value="SIGN UP" onclick="{document.auth.inputHide.value=this.value;document.auth.submit();}">
-            SIGN UP
-            <i class="material-icons right">send</i>
-        </button>
+        <button type="button" name="sign" value="SIGN UP" onclick="{document.auth.inputHide.value=this.value;document.auth.submit();}">SIGN UP</button>
 
     </form>
-    <hr>
-    <a class="white-text center" href="http://localhost:5000/auth/login" style="color: black"> Вы уже зарегистрированы?</a>
+    <a href="http://localhost:5000/auth/login" style="color: black"> Вы уже зарегистрированы?</a>
+    <!--    <button onclick="window.location.href = 'http://localhost:5000/auth/login'">LOG IN</button>-->
 </div>
 
 <script>

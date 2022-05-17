@@ -7,6 +7,7 @@ const {accessKey, refreshKey} = require("../security/jwtKeys");
 const {Sequelize} = require("../model/contextDB");
 const {admin, enrollee, guest, rule} = require("../security/defines");
 const Console = require("console");
+const {where} = require("sequelize");
 
 path.pop();
 
@@ -75,31 +76,79 @@ exports.userinfo = async (req, res, next) => {
 exports.userinfodata = async (req, res, next) => {
     switch (req.method) {
         case "GET":
-            try {
-                let id = parseInt(req.payload.id)
-                Users_data.findAll({
-                    where: {
-                        id_auth: id
-                    },
-                    include:[{
-                        model: Users_marks,
-                        required: true,
-                        attributes:["math","phys","lang","att"]
-                    }]
-                })
-                    .then(r => {
-                        if (r.length === 0){
-                            res.status(200).json({error:"noinfo"});
-                            //res.redirect('/belstu_fit/userinfo/add');
-                        }
-                        else{
-                            res.status(200).json(r);
-                        }
+            if (req.ability.can(rule.enrol)) {
+                try {
+                    let id = parseInt(req.payload.id)
+                    Users_data.findAll({
+                        where: {
+                            id_auth: id
+                        },
+                        include: [{
+                            model: Users_marks,
+                            required: true,
+                            attributes: ["math", "phys", "lang", "att"]
+                        }]
                     })
-                    .catch(err =>  res.send(err.message));
-                return
-            } catch (err) {
-                Error.Error500(res, err);
+                        .then(r => {
+                            if (r.length === 0) {
+                                res.status(200).json({error: "noinfo"});
+                                //res.redirect('/belstu_fit/userinfo/add');
+                            } else {
+                                console.log(r)
+                                res.status(200).json(r);
+                            }
+                        })
+                        .catch(err => res.send(err.message));
+                    return
+                } catch (err) {
+                    Error.Error500(res, err);
+                }
+            }
+            else {
+                res.redirect('/auth/login')
+                break
+            }
+            break;
+        default:
+            res.statusCode = 405;
+            res.messageerror = "Method not allowed";
+            res.end();
+    }
+}
+
+
+exports.userApplication = async (req, res, next) => {
+    switch (req.method) {
+        case "GET":
+            if (req.ability.can(rule.enrol)) {
+                try {
+                    let id = parseInt(req.payload.id)
+                    Users_data.findAll({
+                        where: {
+                            id_auth: id
+                        },
+                        include: [{
+                            model: Overall_rating,
+                            required: true
+                        }]
+                    })
+                        .then(r => {
+                            if (r.length === 0) {
+                                res.status(200).json({error: "noinfo"});
+                                //res.redirect('/belstu_fit/userinfo/add');
+                            } else {
+                                res.status(200).json(r);
+                            }
+                        })
+                        .catch(err => res.send(err.message));
+                    return
+                } catch (err) {
+                    Error.Error500(res, err);
+                }
+            }
+            else {
+                res.redirect('/auth/login')
+                break
             }
             break;
         default:
@@ -112,12 +161,18 @@ exports.userinfodata = async (req, res, next) => {
 exports.addInfo = async (req, res, next) => {
     switch (req.method) {
         case "GET":
-            res.render(
-                'belstuFitUserAddInfo',
-                {
-                    title: "AddInfo",
-                    css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
-                });
+            if (req.ability.can(rule.enrol)) {
+                res.render(
+                    'belstuFitUserAddInfo',
+                    {
+                        title: "AddInfo",
+                        css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
+                    });
+            }
+            else {
+                res.redirect('/auth/login')
+                break
+            }
             //res.sendFile(path.join("\\") + "\\views\\addInfoUser.html");
             break;
         case "POST":
@@ -150,47 +205,52 @@ exports.addInfo = async (req, res, next) => {
             res.end();
     }
 }
-// exports.addMarks = async (req, res, next) => {
-//     switch (req.method) {
-//         case "GET":
-//             res.sendFile(path.join("\\") + "\\views\\usersMarks.html");
-//             break;
-//         case "POST":
-//             let name = req.body.name
-//             let surname = req.body.surname
-//             let middle_name = req.body.middle_name
-//             let city = req.body.city
-//             let address = req.body.address
-//             let birthday = req.body.birthday
-//             console.log(name, surname, middle_name, city, address, birthday)
-//             Users_data.create({id_auth: req.payload.id, name: name,  surname:surname, middle_name:middle_name, city:city, address:address, date_of_birth:birthday})
-//                 .then(() => res.send("Add info is successful"))
-//                 .catch(err =>  res.send(err.message));
-//             break;
-//             // res.status(200).send("Eee");
-//             // break;
-//         default:
-//             res.statusCode = 405;
-//             res.messageerror = "Method not allowed";
-//             res.end();
-//     }
-//}
-exports.getrating = async (req, res, next) => {
-    switch (req.method) {
-        case "GET":
-            Overall_rating.findAll(
-                {
-                    attributes:['sum','POIT','ISIT','POIBMS','DEIVI']
-                }
-            )
-                .then(r => {
 
-                    //res.send("Add info is successful")
-                    res.status(200).json(r)
+exports.updMarks = async (req, res, next) => {
+    switch (req.method) {
+        // case "GET":
+        //     if (req.ability.can(rule.enrol)) {
+        //         res.sendFile(path.join("\\") + "\\views\\usersMarks.html");
+        //     }
+        //     else{
+        //         res.redirect('/auth/login')
+        //         break
+        //     }
+        //     break;
+        case "POST":
+            let math = parseInt(req.body.math)
+            let phys = parseInt(req.body.physics)
+            let lang = parseInt(req.body.language)
+            let att = parseInt(req.body.certificate)
+            let id = parseInt(req.payload.id)
+            console.log(math, phys, lang, att)
+            Users_data.findOne({
+                where: {
+                    id_auth: id
+                },
+                attributes:["id"]})
+                .then(r => {
+                    Users_marks.update(
+                        {
+                            math: math,
+                            phys: phys,
+                            lang: lang,
+                            att: att
+                        },
+                        {where: {id_user: r.id}}
+                    )
+                        .then(task => {
+                            //res.send("Add info is successful")
+                            res.redirect('/belstu_fit/userinfo')
+                        })
+                        .catch(err => {
+                            console.log('Error: ', err.message)
+                            res.send("Add info is not successful")
+                        })
                 })
-                .catch(err =>  {
-                    res.status(200).json({error:"No data"})
-                });
+            // Users_data.create({id_auth: req.payload.id, name: name,  surname:surname, middle_name:middle_name, city:city, address:address, date_of_birth:birthday})
+            //     .then(() => res.send("Add info is successful"))
+            //     .catch(err =>  res.send(err.message));
             break;
             // res.status(200).send("Eee");
             // break;
@@ -200,16 +260,36 @@ exports.getrating = async (req, res, next) => {
             res.end();
     }
 }
+
 exports.filing = async (req, res, next) => {
     switch (req.method) {
         case "GET":
-            if (req.ability.can(rule.enrol)){
-                res.render(
-                    'belstuFitApplication',
-                    {
-                        title: "AddApplication",
-                        css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
-                    });
+            if (req.ability.can(rule.enrol)) {
+                let id = parseInt(req.payload.id)
+                Users_data.findAll({
+                    where: {
+                        id_auth: id
+                    },
+                    include: [{
+                        model: Overall_rating,
+                        required: true
+                    }]
+                }).then(r => {
+                    if (r.length === 0) {
+                        res.render(
+                            'belstuFitApplication',
+                            {
+                                title: "AddApplication",
+                                css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
+                            });
+                    }
+                    else{
+                        res.redirect('/belstu_fit/userinfo')
+                    }
+
+                    //console.log(r)
+                })
+                break
             }
             else{
                 res.redirect('/auth/login')
@@ -217,7 +297,7 @@ exports.filing = async (req, res, next) => {
             }
 
             //res.sendFile(path.join("\\") + "\\views\\addInfoUser.html");
-            break;
+            //break;
         case "POST":
             let poit = req.body.priority_poit
             let isit = req.body.priority_isit
@@ -255,6 +335,95 @@ exports.filing = async (req, res, next) => {
 
             //res.sendFile(path.join("\\") + "\\views\\addInfoUser.html");
             break;
+        default:
+            res.statusCode = 405;
+            res.messageerror = "Method not allowed";
+            res.end();
+    }
+}
+
+exports.changeFiling = async (req, res, next) => {
+    switch (req.method) {
+        case "GET":
+            if (req.ability.can(rule.enrol)){
+                res.sendFile(path.join("\\") + "\\views\\change_application.html");
+                // res.render(
+                //     'belstuFitApplication',
+                //     {
+                //         title: "AddApplication",
+                //         css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
+                //     });
+            }
+            else{
+                res.redirect('/auth/login')
+                break
+            }
+
+            //res.sendFile(path.join("\\") + "\\views\\addInfoUser.html");
+            break;
+        case "POST":
+            let poit = req.body.priority_poit
+            let isit = req.body.priority_isit
+            let poibms = req.body.priority_poibms
+            let deivi = req.body.priority_deivi
+            let id_auth = parseInt(req.payload.id)
+            let id_user = 0
+            let sum = 0
+            Users_data.findOne({
+                where: {
+                    id_auth: id_auth
+                },
+                attributes:["id"]
+            }).then(r => {
+                id_user = r.id
+                //console.log(sum + " " + id_user)
+                Overall_rating.update({
+                    POIT:poit,
+                    ISIT:isit,
+                    POIBMS:poibms,
+                    DEIVI:deivi,
+                    confirm:false
+                },
+                    {where: {id_user: r.id}
+                    })
+                    .then(() => {
+                        res.redirect('/belstu_fit/userinfo');
+                    })
+                    .catch(err => {
+                        res.send("Add info is not successful")
+                    })
+            })
+
+
+            //res.sendFile(path.join("\\") + "\\views\\addInfoUser.html");
+            break;
+        default:
+            res.statusCode = 405;
+            res.messageerror = "Method not allowed";
+            res.end();
+    }
+}
+
+exports.getrating = async (req, res, next) => {
+    switch (req.method) {
+        case "POST":
+            let contract = req.body.contract
+            Overall_rating.findAll({
+
+                where:[{contract:contract, confirm:true}],
+                attributes:['sum','POIT','ISIT','POIBMS','DEIVI']
+            })
+                .then(r => {
+
+                    //res.send("Add info is successful")
+                    res.status(200).json(r)
+                })
+                .catch(err =>  {
+                    res.status(200).json({error:"No data"})
+                });
+            break;
+        // res.status(200).send("Eee");
+        // break;
         default:
             res.statusCode = 405;
             res.messageerror = "Method not allowed";

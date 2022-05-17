@@ -43,13 +43,18 @@
 // })
 
 
-const GetRating = () => {
+const GetRating = (cont) => {
     fetch("http://localhost:5000/belstu_fit/getrating", /*TODO link*/{
-        method : 'GET',
+        method : 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
-        }
-    }).then(response => {return response.json()})
+        },
+        body: JSON.stringify(
+            {
+                contract : cont
+            })
+    })
+        .then(response => {return response.json()})
         .then(result => {
             if(result.error){
                 console.log("Dura")
@@ -58,14 +63,21 @@ const GetRating = () => {
             else {
                 console.log(result)
                 //monitoring(result)
-                document.getElementById("monitoring").innerHTML = monitoring(result)
+                if(cont === "budgetary"){
+                    document.getElementById("monitoring_budgetary").innerHTML = monitoring(result, cont)
+                }
+                if(cont === "paid"){
+                    document.getElementById("monitoring_paid").innerHTML = monitoring(result, cont)
+                }
+
             }
         })
 }
-GetRating()
-const monitoring = (json) => {
+GetRating("budgetary")
+GetRating("paid")
+const monitoring = (json, cont) => {
     let a = 0;
-    let min = 61;
+    let min = 71;
     let POIT = []
     for(let i=0; i<=40 ;i++){
         POIT[i] = 0
@@ -103,8 +115,16 @@ const monitoring = (json) => {
     console.log(POIBMS)
     console.log(DEIVI)
 
-    let list = `<div id="belstu__monitoring">Мониторинг:
-                <table id="belstu__monitoring__table" style="border-collapse: collapse;">
+    let type = ""
+    if(cont === "budgetary"){
+        type = "бюджета"
+    }
+    if(cont === "paid"){
+        type = "платного"
+    }
+
+    let list = `<div id="belstu__monitoring__${cont}">Мониторинг ${type}:
+                <table id="belstu__monitoring__table__${cont}" style="border-collapse: collapse;">
                     <tr>
                         <th>Cпецуха</th>`
     for(let i=min; i<401 ;i = i + 10){

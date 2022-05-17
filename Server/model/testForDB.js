@@ -2,8 +2,9 @@ const  {Sequelize, Model, sequelize} = require('./contextDB')
 const {log} = require("nodemon/lib/utils");
 const Console = require("console");
 const {University_data, Faculty_data, Speciality_data, Entry_threshold} = require("../model/universities");
-const {Users_data, Users_marks} = require("../model/users");
+const {Users_data, Users_marks, Overall_rating} = require("../model/users");
 const json = require("body-parser/lib/types/json");
+const {where} = require("sequelize");
 
 const Authorization_data = require("./users").Authorization_data;
 
@@ -52,24 +53,50 @@ sequelize.authenticate()
         // }).then(r => {
         //     console.log(r.id)
         // })
-        let sum = ""
-        Users_data.findOne({
-            where: {
-                id_auth: 1
-            },
-            attributes:[],
-            include: [{
-                model: Users_marks,
-                attributes:[],
-                required: true,
-                attributes:["math","phys","lang","att"]
-            }]}).then(r => {
-            r.Users_marks.forEach(m => {
-                sum += m.math + m.phys + m.lang +m.att
-            })
-            console.log(sum)
-        })
-
+        //
+        // let sum = ""
+        // Users_data.findOne({
+        //     where: {
+        //         id_auth: 1
+        //     },
+        //     attributes:[],
+        //     include: [{
+        //         model: Users_marks,
+        //         attributes:[],
+        //         required: true,
+        //         attributes:["math","phys","lang","att"]
+        //     }]}).then(r => {
+        //     r.Users_marks.forEach(m => {
+        //         sum += m.math + m.phys + m.lang +m.att
+        //     })
+        //     console.log(sum)
+        // })
+        //
+        // Users_marks.update(
+        //     {math: 88, phys: 77, lang: 11, att: 34},
+        //     {where: {id_user: 1}}
+        // )
+        // .then(task => console.log('Result: ', task))
+        // .catch(err => console.log('Error: ', err.message));
+        //
+        // Users_data.findAll({
+        //     where: {
+        //         id_auth: id
+        //     },
+        //     include: [{
+        //         model: Users_marks,
+        //         required: true,
+        //         attributes: ["math", "phys", "lang", "att"]
+        //     }, {
+        //         model: Overall_rating,
+        //         required: true
+        //     }]
+        // }).then(r => {
+        //     console.log("r.Users_marks")
+        //
+        // })
+        //     .catch(r => Console.log(`OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ${r}`));
+        //
         //     .catch(r => Console.log(`OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ${r}`));
         //
         // Users_data.findAll({
@@ -248,6 +275,19 @@ sequelize.authenticate()
         // )
         // .then(task => console.log('Result: ', task))
         // .catch(err => console.log('Error: ', err.message));
+
+        Overall_rating.findAll(
+            {
+                attributes:['sum','POIT','ISIT','POIBMS','DEIVI']
+            },
+            where([{contract:"budgetary", confirm:true}])
+        )
+            .then(r => {
+                console.log(r)
+            })
+            .catch(err => {
+                console.log("ioioioi")
+            })
 
     })
     .catch(err => {console.log('Error!!!!DB is not connect(((:',err.message);});

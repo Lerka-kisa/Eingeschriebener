@@ -25,7 +25,8 @@
     "passport-local": "^1.0.0",
     "redis": "^4.0.4",
     "sequelize": "^6.17.0",
-    "tedious": "^14.3.0"
+    "tedious": "^14.3.0",
+    "ws": "^8.6.0"
   },
   "devDependencies": {
     "express": "^4.17.3",

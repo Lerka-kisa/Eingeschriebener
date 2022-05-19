@@ -3,8 +3,8 @@ const path = __dirname.split('\\');
 const Authorization_data = require("../model/users").Authorization_data;
 const {accessKey, refreshKey} = require("../security/jwtKeys");
 const {Sequelize} = require("../model/contextDB");
-const Console = require("console");
 const fs = require('fs')
+const crypto = require('crypto')
 
 path.pop();
 
@@ -15,7 +15,7 @@ exports.login = async (req, res, next) => {
                 'belstuFitAuthorization',
                 {
                     title: "Authorization",
-                    css: `<link rel='stylesheet' href='/css/login.css'>`//TODO CSS
+                    css: `<link rel='stylesheet' href='/css/authorization.css'>`//TODO CSS
                 });
             //res.sendFile(path.join("\\") + "\\views\\index.html");
             //fs.createReadStream("\\views\\login.txt").pipe(res)
@@ -24,10 +24,13 @@ exports.login = async (req, res, next) => {
         case "POST":
             if(req.body.login && req.body.password) {
                 try {
+                    let login = req.body.login
+                    let password = req.body.password
+                    let hashPassword = crypto.createHash('md5').update(password).digest('hex')
                     const auth = await Authorization_data.findOne(
                         {
                             where:{
-                                [Sequelize.Op.and]:[{ login: req.body.login, password: req.body.password }]
+                                [Sequelize.Op.and]:[{ login: login, password: hashPassword }]
                             }
                         })//.then(r => Console.log(r))
                     //.catch(r => Console.log(` жопа ${r}`));
@@ -49,11 +52,11 @@ exports.login = async (req, res, next) => {
                         path: '/refresh-token'
                     });
                     //res.redirect('/belstu_fit');
-                    res.status(200).json({error: "ok"})
+                    res.status(200).json({status: "ok"})
                 }
                 catch (e) {
                     //res.redirect('/auth/login')
-                    res.status(200).json({error: "not ok"})
+                    res.status(200).json({status: "not ok"})
                     //document.getElementById("errorInput").innerHTML = "дщдщд";
                 }
             }
@@ -72,14 +75,24 @@ exports.register = (req, res, next) => {
                 'belstuFitRegistration',
                 {
                     title: "Registration",
-                    css: `<link rel='stylesheet' href='/css/login.css'>`//TODO CSS
+                    css: `<link rel='stylesheet' href='/css/registration.css'>`//TODO CSS
                 });
             //res.sendFile(path.join("\\") + "\\views\\register.html");
             break;
         case "POST":
-            Authorization_data.create({login: req.body.login,  password: req.body.password, role: 'ENROLLEE'})
-                .then(() => res.redirect('/auth/login'))
-                .catch(err =>  res.send(err.message));
+            let login = req.body.login
+            let password = req.body.password
+            let hashPassword = crypto.createHash('md5').update(password).digest('hex')
+            //bcrypt.hash(password, 5).then(r => {
+            //     hashPassword = r
+            // });
+            Authorization_data.create({login: login,  password: hashPassword, role: 'ENROLLEE'})
+                .then(() =>  res.status(200).json({status: "ok"})/*res.redirect('/auth/login')*/)
+                .catch(err => {
+                    res.status(200).json({status: "not ok"})
+                })
+
+        // } =>  res.send(err.message));
             break;
         default:
             res.statusCode = 405;

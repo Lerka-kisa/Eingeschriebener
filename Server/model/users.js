@@ -7,7 +7,7 @@ class Overall_rating extends Model{}
 
 Authorization_data.init(
     {
-            login:      {type: Sequelize.STRING, allowNull:false},
+            login:      {type: Sequelize.STRING, allowNull:false, unique:true},
             password:   {type: Sequelize.STRING, allowNull:false},
             role:       {type: Sequelize.STRING, allowNull:false}
     },
@@ -41,6 +41,10 @@ Overall_rating.init(
     {
             id_user:    {type: Sequelize.INTEGER,    allowNull:false, unique:true, references: {model: Users_data, key:'id'}},
             file_number:{type: Sequelize.STRING,     allowNull:true},
+            math:        {type: Sequelize.INTEGER,    allowNull:false},
+            phys:        {type: Sequelize.INTEGER,    allowNull:false},
+            lang:        {type: Sequelize.INTEGER,    allowNull:false},
+            att:        {type: Sequelize.INTEGER,    allowNull:false},
             sum:        {type: Sequelize.INTEGER,    allowNull:false},
             POIT:       {type: Sequelize.INTEGER,    allowNull:true},
             ISIT:       {type: Sequelize.INTEGER,    allowNull:true},

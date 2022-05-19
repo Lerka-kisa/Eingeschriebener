@@ -1,5 +1,5 @@
-@import url(http://weloveiconfonts.com/api/?family=entypo);
-@import url(https://fonts.googleapis.com/css?family=Roboto);
+/*@import url(http://weloveiconfonts.com/api/?family=entypo);*/
+/*@import url(https://fonts.googleapis.com/css?family=Roboto);*/
 [class*="entypo-"]:before {
     font-family: 'entypo', sans-serif;
 }
@@ -53,7 +53,7 @@ input:focus {
 button {
     float:right;
     height: 70px;
-    width: 100px;
+    /*width: 100px;*/
     border: 0px;
     background: #0B7FAB;
     border-radius:7px;

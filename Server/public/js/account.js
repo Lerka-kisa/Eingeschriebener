@@ -263,7 +263,8 @@ const userApp = (jsonArr) => {
             ////console.log(over.sum + over.POIT)
             let status = ""
             if(over.confirm){
-                status = "Участвует в конкурсе"
+                status = `Участвует в конкурсе<br/>
+                            Номер дела:${over.file_number}`
             }
             else {
                 status = "В обработке"

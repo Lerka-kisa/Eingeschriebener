@@ -276,18 +276,72 @@ sequelize.authenticate()
         // .then(task => console.log('Result: ', task))
         // .catch(err => console.log('Error: ', err.message));
 
-        Overall_rating.findAll(
-            {
-                attributes:['sum','POIT','ISIT','POIBMS','DEIVI']
+        // Overall_rating.findAll(
+        //     {
+        //         attributes:['sum','POIT','ISIT','POIBMS','DEIVI']
+        //     },
+        //     where([{contract:"budgetary", confirm:true}])
+        // )
+        //     .then(r => {
+        //         console.log(r)
+        //     })
+        //     .catch(err => {
+        //         console.log("ioioioi")
+        //     })
+
+
+        // Users_data.findAll({
+        //     include: [{
+        //         model: Overall_rating,
+        //         required: true,
+        //         attributes: ["file_number", "math","phys","lang","att","sum", "POIT", "ISIT", "POIBMS", "DEIVI"],
+        //         where:[{contract:"budgetary", confirm:true}]
+        //     }]
+        // }).then(r => {
+        //     res.status(200).json(r)
+        // })
+        //     .catch(err =>  {
+        //         res.status(200).json({error:"No data"})
+        //     });
+        Users_data.findOne({
+            where: {
+                id_auth: 1
             },
-            where([{contract:"budgetary", confirm:true}])
-        )
+            include: [{
+                model: Overall_rating,
+                required: true
+            }]
+        })
             .then(r => {
-                console.log(r)
+                if (r.length === 0) {
+                    console.log("OK)))))))))))))))))))))))))))))))")
+                }
+                else{
+                    console.log("Has already))))))))))))))))))))))))))))))))))))))")
+                }
             })
             .catch(err => {
-                console.log("ioioioi")
+                console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
             })
 
+        // Users_data.findOne({
+        //     where: {
+        //         id_auth: 1
+        //     },
+        //     include: [{
+        //         model: Users_marks,
+        //         required: true
+        //     }]
+        // })
+        //     .then(r => {
+        //         r.Users_marks.forEach(m => {
+        //             if(m.math === 0 || m.phys === 0 || m.lang === 0 || m.att === 0){
+        //                 console.log({"status":"Not all CT"})
+        //             }
+        //         })
+        //     })
+        //     .catch(() => {
+        //         console.log({"status":"Not info about user"})
+        //     })
     })
     .catch(err => {console.log('Error!!!!DB is not connect(((:',err.message);});

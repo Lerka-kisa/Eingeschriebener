@@ -11,6 +11,7 @@ const {where} = require("sequelize");
 
 path.pop();
 
+//Главная страница БГТУ
 exports.mainPage = async (req, res, next) => {
     switch (req.method) {
         case "GET":
@@ -28,6 +29,7 @@ exports.mainPage = async (req, res, next) => {
     }
 }
 
+//Значок личного кабинета
 exports.userinfo = async (req, res, next) => {
     switch (req.method) {
         case "GET":
@@ -36,13 +38,7 @@ exports.userinfo = async (req, res, next) => {
                 if (req.ability.can(rule.admin)) {
                     //res.status(200).send("Hurray, you are admin");
                     //res.status(200).send({error: 2})
-                    res.render(
-                        'belstuFitAdmin',
-                        {
-                            title: "Admin",
-                            css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
-                        });
-                    break
+                    res.redirect('/belstu_fit/admin')
                     break
                 }
                 if (req.ability.can(rule.enrol)) {
@@ -73,6 +69,7 @@ exports.userinfo = async (req, res, next) => {
     }
 }
 
+//Личные данные юзера и его баллы
 exports.userinfodata = async (req, res, next) => {
     switch (req.method) {
         case "GET":
@@ -116,7 +113,7 @@ exports.userinfodata = async (req, res, next) => {
     }
 }
 
-
+//Заявка юзера
 exports.userApplication = async (req, res, next) => {
     switch (req.method) {
         case "GET":
@@ -158,6 +155,8 @@ exports.userApplication = async (req, res, next) => {
     }
 }
 
+//Заполнение личных данных юзера
+//TODO мб сделать изменение личных данных?????
 exports.addInfo = async (req, res, next) => {
     switch (req.method) {
         case "GET":
@@ -192,10 +191,16 @@ exports.addInfo = async (req, res, next) => {
                             console.log("All norm)))")
                             //res.redirect('/belstu_fit/userinfo');
                         })
-                        .catch(err =>  res.send(err.message + "user marks"))
-                    res.redirect('/belstu_fit/userinfo');
+                        .catch(err => {
+                            console.log(err.message)
+                            res.status(200).json({"status":"not ok"})
+                        })
+                    res.status(200).json({"status":"ok"})
                 })
-                .catch(err =>  res.send(err.message));
+                .catch(err =>  {
+                    console.log(err.message)
+                    res.status(200).json({"status":"not ok"})
+                });
             break;
         // res.status(200).send("Eee");
         // break;
@@ -206,6 +211,7 @@ exports.addInfo = async (req, res, next) => {
     }
 }
 
+//Изменение своих баллов
 exports.updMarks = async (req, res, next) => {
     switch (req.method) {
         // case "GET":
@@ -261,43 +267,97 @@ exports.updMarks = async (req, res, next) => {
     }
 }
 
-exports.filing = async (req, res, next) => {
+exports.checkFiling = async (req, res, next) => {
     switch (req.method) {
         case "GET":
+            //let mess = ""
+
             if (req.ability.can(rule.enrol)) {
                 let id = parseInt(req.payload.id)
-                Users_data.findAll({
+                let mess = true
+                Users_data.findOne({
                     where: {
                         id_auth: id
                     },
                     include: [{
-                        model: Overall_rating,
+                        model: Users_marks,
                         required: true
                     }]
-                }).then(r => {
-                    if (r.length === 0) {
-                        res.render(
-                            'belstuFitApplication',
-                            {
-                                title: "AddApplication",
-                                css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
-                            });
-                    }
-                    else{
-                        res.redirect('/belstu_fit/userinfo')
-                    }
-
-                    //console.log(r)
                 })
+                .then(r => {
+                    r.Users_marks.forEach(m => {
+                        if(m.math === 0 || m.phys === 0 || m.lang === 0 || m.att === 0){
+                            //mess = "Not all CT"
+                            res.status(200).json({"status":"Not all CT"})
+                            mess = false
+                        }
+                    })
+                })
+                .catch(() => {
+                    res.status(200).json({"status":"Not info about user"})
+                    mess = false
+                    //mess = "Not info about user"
+                })
+                if(mess){
+                    Users_data.findOne({
+                        where: {
+                            id_auth: id
+                        },
+                        include: [{
+                            model: Overall_rating,
+                            required: true
+                        }]
+                    })
+                        .then(r => {
+                            if (r.length === 0) {
+                                res.status(200).json({"status":"OK"})
+                                //mess = "OK"
+                            }
+                            else{
+                                res.status(200).json({"status":"Has already"})
+                                //mess = "Has already"
+                            }
+                        })
+                        .catch(() => {
+                            res.status(200).json({"status":"OK"})
+                            //mess = "OK"
+                        })
+                }
+
+                //res.status(200).json({"status":mess})
+                break
+
+            }
+            else{
+                res.status(200).json({"status":"Not authorized"})
+                //mess = "Not authorized"
+                break
+            }
+
+        default:
+            res.statusCode = 405;
+            res.messageerror = "Method not allowed";
+            res.end();
+    }
+}
+
+exports.filing = async (req, res, next) => {
+    switch (req.method) {
+        case "GET":
+            if (req.ability.can(rule.enrol)) {
+                res.render(
+                    'belstuFitApplication',
+                    {
+                        title: "AddApplication",
+                        css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
+                    }
+                );
                 break
             }
             else{
                 res.redirect('/auth/login')
                 break
             }
-
-        //res.sendFile(path.join("\\") + "\\views\\addInfoUser.html");
-        //break;
         case "POST":
             let poit = req.body.priority_poit
             let isit = req.body.priority_isit
@@ -306,6 +366,10 @@ exports.filing = async (req, res, next) => {
             let contract = req.body.contact
             let id_auth = parseInt(req.payload.id)
             let id_user = 0
+            let math = 0
+            let phys = 0
+            let lang = 0
+            let att = 0
             let sum = 0
             Users_data.findOne({
                 where: {
@@ -319,11 +383,30 @@ exports.filing = async (req, res, next) => {
                     attributes:["math","phys","lang","att"]
                 }]}).then(r => {
                 r.Users_marks.forEach(m => {
-                    sum += m.math + m.phys + m.lang +m.att
+                    math = m.math
+                    phys = m.phys
+                    lang = m.lang
+                    att = m.att
+
+                    sum += m.math + m.phys + m.lang + m.att
                 })
                 id_user = r.id
                 //console.log(sum + " " + id_user)
-                Overall_rating.create({id_user:id_user,file_number:"no number", sum:sum, POIT:poit, ISIT:isit, POIBMS:poibms, DEIVI:deivi,contract:contract, confirm:false})
+                Overall_rating.create({
+                    id_user:id_user,
+                    file_number:"no number",
+                    math:math,
+                    phys:phys,
+                    lang:lang,
+                    att:att,
+                    sum:sum,
+                    POIT:poit,
+                    ISIT:isit,
+                    POIBMS:poibms,
+                    DEIVI:deivi,
+                    contract:contract,
+                    confirm:false
+                })
                     .then(() => {
                         res.redirect('/belstu_fit/userinfo');
                     })

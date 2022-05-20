@@ -1,29 +1,25 @@
-<div id="authorization" class="main_div">
+<div class="hidden"></div>
 
-    <p>
-        <label for="login">Login: </label>
-        <input id="login" class="user" type="text" name="login" placeholder="Login or email" required onkeyup="checkLogin(this.value)">
-        <span class="entypo-user inputUserIcon">
-            <i class="fa fa-user"/>
-        </span>
-    </p>
+<div id="authorization">
 
-    <p>
-        <label for="password">Password: </label>
-        <input id="password" class="pass" type="password" name="password" placeholder="Password" required class="showPassword" onkeyup="checkPassword(this.value)">
-        <span class="entypo-key inputPassIcon">
-                <i class="fa fa-key"/>
-        </span>
-    </p>
+    <div>
+        <label class="black-text x-large bold" for="login">Логин: </label>
+        <input id="login" class="input_padding" type="text" name="login" placeholder="Введите логин" required onkeyup="checkLogin(this.value)">
+    </div>
 
-    <div id="serving">
+    <div>
+        <label  class="black-text x-large bold" for="password">Пароль: </label>
+        <input id="password" class="input_padding" type="password" name="password" placeholder="Введите пароль" required onkeyup="checkPassword(this.value)">
+    </div>
+
+    <div id="serving" class="authorization_error">
         <p id="errorInput"></p>
         <p id="error"></p>
     </div>
 
-    <div>
-        <button id="submit_login">Войти</button>
-        <a href="https://Eingeschriebener/auth/register" style="color: black"> Вы ещё не зарегистрировались?</a>
+    <div class="authorization_links">
+        <button id="submit_login" class="authorization_links_button">Войти</button>
+        <a class="black-text large authorization_links_a" href="https://Eingeschriebener/auth/register" style="color: black"> Вы ещё не зарегистрировались?</a>
     </div>
 
 </div>

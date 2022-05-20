@@ -139,3 +139,8 @@ const builderUniverPage = (json) => {
     console.log(json)
     return list;
 }
+
+
+const pizdec = () => {
+  document.getElementsByClassName("search")[0].innerHTML = `When pizdec was be here`
+}

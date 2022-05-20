@@ -14,8 +14,6 @@ time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
-    font: inherit;
     vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -27,14 +25,13 @@ footer, header, hgroup, menu, nav, section {
 html{
     margin-left: auto;
     margin-right: auto;
-    width: 1000px;
+
 }
 body {
-    line-height: 1;
     left: 0;
     right: 0;
-    margin: auto;
     width: 100%;
+    background: #F4D75E;
 }
 ol, ul {
     list-style: none;
@@ -42,15 +39,84 @@ ol, ul {
 blockquote, q {
     quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
 
 table {
     border-collapse: collapse;
-    /*убираем пустые промежутки между ячейками*/
     border: 2px solid darkblue;
-    /*устанавливаем для таблицы внешнюю границу серого цвета толщиной 1px*/
+}
+.hidden{
+    min-height: calc(100vh - 18px - 65px);
+}
+/**
+GENERAL
+ */
+.bold{
+    font-weight: 600;
+}
+
+.medium{
+    font-size: medium;
+}
+.large{
+    font-size: large;
+}
+.x-large{
+    font-size: x-large;
+    font-weight: 600;
+}
+.xx-large{
+    font-size: xx-large;
+    font-weight: 600;
+}
+.xxx-large{
+    font-size: xxx-large;
+    font-weight: 600;
+}
+.pointer{
+    cursor: pointer;
+}
+
+/**
+HEADER
+ */
+.nav{
+
+}
+
+.nav-wrapper{
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-areas: ' fit logo icons';
+    background-color: #E9723D;
+    overflow: hidden;
+    font-size: 25px;
+}
+#brand-logo{
+    top: -20px;
+}
+#logo{
+    grid-area: logo;
+    font-size: 40px;
+    text-align: center;
+}
+#fit{
+    grid-area: fit;
+    margin-left: 50px;
+}
+#icons{
+    grid-area: icons;
+}
+.nav-wrapper-icons{
+    height: 40px;
+    margin: 10px;
+    padding: 0;
+    width: auto;
+}
+
+/**
+FOOTER
+ */
+footer {
+    height: 20px;
+    background: #0B7FAB;
 }

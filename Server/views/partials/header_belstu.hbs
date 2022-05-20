@@ -1,3 +1,14 @@
+<nav class="nav">
+    <div class="nav-wrapper">
+        <div id="logo" class="nav-wrapper-brand pointer" onclick="location.href='https://Eingeschriebener/univers/startpage'">Eingeschriebener</div>
+        <img id="fit" class="nav-wrapper-icons pointer" onclick="location.href='https://Eingeschriebener/belstu_fit'" src="/icon/fit.png" alt="Eingeschriebener">
+
+        {{#if auth}}
+            {{>header_button}}
+        {{/if}}
+    </div>
+</nav>
+<!-- #E9723D
 <nav class="navbar navbar-inverse" style="background-color: #E9723D;">
     <div class="container-fluid">
         <ul class="nav navbar-nav navbar-right">
@@ -5,16 +16,29 @@
                 <img height="20px" width="20px" src="/icon/logo_small.png" alt="Eingeschriebener"> Eingeschriebener</a>
             </li>
         </ul>
-
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="https://Eingeschriebener/belstu_fit" style="color: navajowhite">
-                <!--<img height="20px" width="20px" src="/icon/exit.png" alt="Log out"> -->Belstu</a>
+            <li>
+                <a href="https://Eingeschriebener/belstu_fit/userinfo" style="color: navajowhite">
+                <img height="20px" width="20px" src="/icon/user.svg" alt="Userinfo">
+                    Userinfo
+                </a>
             </li>
         </ul>
-
-        {{#if auth}}
-            {{>header_button}}
-        {{/if}}
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="https://Eingeschriebener/auth/logout" style="color: navajowhite">
+                    <img height="20px" width="20px" src="/icon/exit.png" alt="Log out">
+                    Log out
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="https://Eingeschriebener/belstu_fit" style="color: navajowhite">
+                    Belstu
+                </a>
+            </li>
+        </ul>
     </div>
 </nav>
-<!--<script src="/js/belstu.js"></script>-->
+&lt;!&ndash;<script src="/js/belstu.js"></script>&ndash;&gt;-->

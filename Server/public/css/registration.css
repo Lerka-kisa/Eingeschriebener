@@ -1,3 +1,4 @@
+/*
 @import url(http://weloveiconfonts.com/api/?family=entypo);
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 [class*="entypo-"]:before {
@@ -30,20 +31,6 @@ body {
     width: 380px;
     height: auto;
 }
-
-input {
-    padding: 16px;
-    border-radius:7px;
-    border:0px;
-    background: rgba(255,255,255,.2);
-    display: block;
-    margin: 15px;
-    width: 300px;
-    color:white;
-    font-size:18px;
-    height: 54px;
-}
-
 input:focus {
     outline-color: rgba(0,0,0,0);
     background: rgba(255,255,255,.95);
@@ -53,7 +40,7 @@ input:focus {
 button {
     float:right;
     height: 40px;
-    /*width: 100px;*/
+    !*width: 100px;*!
     border: 0px;
     background: #0B7FAB;
     border-radius:7px;
@@ -83,3 +70,4 @@ input::-webkit-input-placeholder {
 input:focus::-webkit-input-placeholder {
     color: #0B7FAB;
 }
+*/

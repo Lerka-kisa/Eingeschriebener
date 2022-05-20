@@ -1,14 +1,3 @@
-function showPassword() {
-    let show = document.getElementById("showPassword");
-    show.onchange = function() {
-        if(this.checked) {
-            document.getElementById("password").setAttribute("type", "text");
-        }else {
-            document.getElementById("password").setAttribute("type", "password");
-        }
-    }
-}
-
 let loginCheck = false;
 let passwordCheck = false;
 
@@ -75,7 +64,7 @@ const loginUser = () =>{
         })
     }
     else{
-        document.getElementById("errorInput").innerHTML = "Введены некорректные данные";
+        document.getElementById("error").innerHTML = "Введены некорректные данные";
     }
 
 }

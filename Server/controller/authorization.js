@@ -15,7 +15,9 @@ exports.login = async (req, res, next) => {
                 'belstuFitAuthorization',
                 {
                     title: "Authorization",
-                    css: `<link rel='stylesheet' href='/css/authorization.css'>`//TODO CSS
+                    css: `<link rel='stylesheet' href='/css/authorization.css'>`,//TODO CSS
+                    auth: false
+
                 });
             //res.sendFile(path.join("\\") + "\\views\\index.html");
             //fs.createReadStream("\\views\\login.txt").pipe(res)
@@ -79,7 +81,8 @@ exports.register = (req, res, next) => {
                 'belstuFitRegistration',
                 {
                     title: "Registration",
-                    css: `<link rel='stylesheet' href='/css/registration.css'>`//TODO CSS
+                    css: `<link rel='stylesheet' href='/css/registration.css'>`,//TODO CSS
+                    auth: false
                 });
             //res.sendFile(path.join("\\") + "\\views\\register.html");
             break;

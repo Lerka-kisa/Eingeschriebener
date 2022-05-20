@@ -22,7 +22,8 @@ exports.admin = async (req, res, next) => {
                         {
                             title: "Admin",
                             css: `<!--<link rel='stylesheet' href='/css/search.css'>-->
-                                    <link rel='stylesheet' href='/css/dialog.css'>`//TODO CSS
+                                    <link rel='stylesheet' href='/css/dialog.css'>`,//TODO CSS
+                            auth: true
                         });
                     break
                 }

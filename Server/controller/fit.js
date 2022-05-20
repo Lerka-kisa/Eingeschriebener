@@ -22,7 +22,8 @@ exports.mainPage = async (req, res, next) => {
                     title: "BelSTU",
                     css: `<!--<link rel='stylesheet' href='/css/search.css'>-->
                             <link rel='stylesheet' href='/css/dialog.css'>`,//TODO CSS
-                    enrollee: req.ability.can(rule.enrol) ? true : false
+                    enrollee: req.ability.can(rule.enrol) ? true : false,
+                    auth: true
                 });
             break;
         default:
@@ -50,7 +51,8 @@ exports.userinfo = async (req, res, next) => {
                         'belstuFitUserAccount',
                         {
                             title: "UserAccount",
-                            css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
+                            css: `<link rel='stylesheet' href='/css/search.css'>`,//TODO CSS
+                            auth: true
                         });
                     break
                 }
@@ -168,7 +170,8 @@ exports.addInfo = async (req, res, next) => {
                     'belstuFitUserAddInfo',
                     {
                         title: "AddInfo",
-                        css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
+                        css: `<link rel='stylesheet' href='/css/search.css'>`,//TODO CSS
+                        auth: true
                     });
             }
             else {
@@ -353,7 +356,8 @@ exports.filing = async (req, res, next) => {
                     'belstuFitApplications',
                     {
                         title: "AddApplication",
-                        css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
+                        css: `<link rel='stylesheet' href='/css/search.css'>`,//TODO CSS
+                        auth: true
                     }
                 );
                 break

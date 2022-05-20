@@ -66,7 +66,6 @@ const loginUser = () =>{
     else{
         document.getElementById("error").innerHTML = "Введены некорректные данные";
     }
-
 }
 
 let loginbut = document.getElementById('submit_login');

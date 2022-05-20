@@ -5,7 +5,7 @@
 }
 #authorization {
     width: 500px;
-    height: 330px;
+    height: 370px;
     position: absolute;
     margin: auto;
     top: 0;
@@ -17,7 +17,7 @@
     padding: 20px;
     display: grid;
     grid-gap: 15px;
-    grid-template-rows: 1fr 1fr auto 1fr;
+    grid-template-rows: 1fr 1fr 1fr auto 1fr;
 }
 .background-orange{
     background-color: #E9723D;;
@@ -25,7 +25,12 @@
 .background-blue{
     background-color: #0B7FAB;;
 }
-
+.authorization-header{
+    font-size: xx-large;
+    color: white;
+    text-shadow: 1px 1px 5px black;
+    text-align: center;
+}
 .authorization_links_a{
     margin-left: 30px;
 }

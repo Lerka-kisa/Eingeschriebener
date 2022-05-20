@@ -2,14 +2,21 @@
 
 <div id="authorization">
 
-    <div>
-        <label class="black-text x-large bold" for="login">Логин: </label>
-        <input id="login" class="input_padding" type="text" name="login" placeholder="Введите логин" required onkeyup="checkLogin(this.value)">
+    <div class="authorization-header">
+        Авторазация
     </div>
 
-    <div>
-        <label  class="black-text x-large bold" for="password">Пароль: </label>
-        <input id="password" class="input_padding" type="password" name="password" placeholder="Введите пароль" required onkeyup="checkPassword(this.value)">
+    <div class="input-field">
+        <label class="black-text x-large bold validate" for="login">
+            <h5>Имя пользователя </h5></label>
+        <input id="login" type="text" name="login" autocomplete="new-password" required onkeyup="checkLogin(this.value)">
+    </div>
+
+    <div class="input-field">
+        <label  class="black-text x-large bold" for="password">
+            <h5>Пароль</h5>
+        </label>
+        <input id="password" type="password" name="password" autocomplete="new-password" required onkeyup="checkPassword(this.value)">
     </div>
 
     <div id="serving" class="authorization_error">

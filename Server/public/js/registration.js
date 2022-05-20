@@ -1,14 +1,3 @@
-function showPassword() {
-    let show = document.getElementById("showPassword");
-    show.onchange = function() {
-        if(this.checked) {
-            document.getElementById("password").setAttribute("type", "text");
-        }else {
-            document.getElementById("password").setAttribute("type", "password");
-        }
-    }
-}
-
 let loginCheck = false;
 let passwordCheck = false;
 let repeatCheck = false;
@@ -98,7 +87,7 @@ const registUser = () =>{
                 if(result.status === "not ok"){
                     //console.log("kok")
                     //document.getElementById("errorInput")[0].style.borderColor = "red";
-                    document.getElementById("errorInput").innerHTML = "Этот логин уже занят, придумай другой, пожалуйста";
+                    document.getElementById("error").innerHTML = "Этот логин уже занят, придумай другой, пожалуйста";
                 }
                 if(result.status === "ok"){
                     //console.log("lpl")
@@ -111,13 +100,12 @@ const registUser = () =>{
         })
     }
     else {
-        document.getElementById("errorInput").innerHTML = "Введены некорректные данные";
+        document.getElementById("error").innerHTML = "Введены некорректные данные";
     }
 
 }
 
-let registbut = document.getElementById('submit_regist');
-registbut.addEventListener("click", registUser)
+document.getElementById('submit_regist').addEventListener("click", registUser)
 
 
 

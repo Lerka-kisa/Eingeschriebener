@@ -1,32 +1,38 @@
-<div id="registration" class="main_div">
-    <p>
-        <label for="login">Login: </label>
-        <label>
-            <input id="login" type="text" name="login" placeholder="Login" required onkeyup="checkLogin(this.value)">
+<div id="registration">
+
+    <div class="authorization-header">
+        Регистрация
+    </div>
+
+    <div class="input-field">
+        <label class="black-text x-large" for="login">
+            <h5>Имя пользователя </h5>
         </label>
-    </p>
+        <input id="login" type="text" name="login" autocomplete="new-password" required onkeyup="checkLogin(this.value)">
+    </div>
 
-    <p>
-        <label for="password">Password: </label>
-        <input id="password" type="password" name="password" placeholder="Password" onkeyup="checkPassword(this.value)">
-    </p>
+    <div class="input-field">
+        <label class="black-text x-large" for="password">
+            <h5>Пароль</h5>
+        </label>
+        <input id="password" type="password" name="password" autocomplete="new-password" onkeyup="checkPassword(this.value)">
+    </div>
 
-    <p>
-        <label for="password">Repeat password: </label>
-        <input id="repeat" type="password" name="repeat" placeholder="Password" class="showPassword" onkeyup="checkRepeat(this.value)">
-    </p>
+    <div class="input-field">
+        <label class="black-text x-large" for="repeat">
+            <h5>Повторите пароль</h5>
+        </label>
+        <input id="repeat" type="password" name="repeat" autocomplete="new-password" onkeyup="checkRepeat(this.value)">
+    </div>
 
-    <div id="serving">
+    <div id="serving" class="authorization_error">
         <p id="errorInput"></p>
         <p id="error"></p>
     </div>
 
     <div>
+        <a class="black-text large authorization_links_a" href="https://Eingeschriebener/auth/login" style="color: black"> Вы уже зарегистрированы?</a>
         <button id="submit_regist">Регистрация</button>
-    </div>
-
-    <div>
-        <a href="https://Eingeschriebener/auth/login" style="color: black"> Вы уже зарегистрированы?</a>
     </div>
 </div>
 

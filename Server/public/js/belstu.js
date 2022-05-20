@@ -1,6 +1,6 @@
 // window.onload = function (){ }
 // const infoUser = () => {
-//     fetch("http://localhost:5000/belstu_fit/userinfo", /*TODO link*/{
+//     fetch("https://Eingeschriebener/belstu_fit/userinfo", /*TODO link*/{
 //         method : 'GET',
 //         headers: {
 //             'Content-Type': 'application/json;charset=utf-8'
@@ -12,7 +12,7 @@
 //                 //если гость
 //                 if (result.error === 1){
 //                     console.log("Надо авторизоваться")
-//                     fetch("http://localhost:5000/auth/login", /*TODO link*/{
+//                     fetch("https://Eingeschriebener/auth/login", /*TODO link*/{
 //                         method : 'GET',
 //                         headers: {
 //                             'Content-Type': 'text/plain'

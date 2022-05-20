@@ -1,0 +1,117 @@
+<div id="dialog_chat_admin">
+    <div id="dialog_users">
+
+    </div>
+
+    <div id="dialog_interface">
+        <div id="dialog_indicator">Chat </div>
+        <div id="dialog_messages">
+
+        </div>
+        <input id="dialog_input" type="text" name="user_message">
+        <input id="dialog_send" type="button" value="Отправить">
+    </div>
+</div>
+
+<script>
+    const ws = new WebSocket('wss://Eingeschriebener');
+    const input = document.getElementById("dialog_input");
+    const send = document.getElementById("dialog_send");
+    let messages = document.getElementById("dialog_messages");
+    let status = document.getElementById("dialog_status");
+    let users = document.getElementById("dialog_users");
+    let allMessages = [];
+    let current = "";
+
+    send.addEventListener("click", () => {
+        if(input.value !== "")
+            ws.send(JSON.stringify({action: "response",login: current, message: input.value }))
+        input.value = "";
+    })
+
+    ws.onopen = () => {
+        console.log("open wss");
+    };
+
+    setTimeout(() => {
+        ws.send(JSON.stringify({action: "online", message: input.value}))
+    }, 500)
+
+    ws.onmessage = (response) => {
+        let data = JSON.parse(response.data);
+        let found = false;
+         console.log(data)
+
+        if(data.online !== undefined)
+            return;
+        else {
+            if(allMessages.length === 0){
+                allMessages.push(data);
+                build();
+            }else{
+                for (const message of allMessages) {
+                    if(message.data !== undefined)
+                        if(data.data[0].login === message.data[0].login)
+                        {
+                            if(data.data[0].admin){
+                                message.data.push({login: data.data[0].admin, message: data.data[0].message[0]})
+                            }else{
+                                message.data.push({login: data.data[0].login, message: data.data[0].message[0]})
+                            }
+                            found = true;
+                        }
+                }
+
+                if(found === false){
+                    allMessages.push(data)
+                    build();
+                }
+
+
+                if(data.data[0].login === current){
+                    loadMessage(current)
+                }else{
+                    document.getElementById(data.data[0].login).style.color  = "red";
+                }
+
+            }
+            /*     console.log(allMessages)*/
+        }
+    };
+
+    ws.onerror = (err) => {
+        status.style.backgroundColor = "red";
+        users.innerHTML = "";
+        console.log(err)
+    }
+
+    const build = () => {
+        users.innerHTML = ""
+        for (let val of allMessages) {
+
+            let button = document.createElement("button");
+            button.appendChild(document.createTextNode(val.data[0].login))
+            button.classList.add("dialog_users")
+            button.id = val.data[0].login;
+            button.addEventListener("click", loadMessage, this.value);
+            //users.append(button);
+            users.prepend(button);
+        }
+    }
+
+    const loadMessage = (user) => {
+        if(user.target)
+            current = user.target.innerHTML;
+        document.getElementById(current).style.color  = "black";
+
+        for (let val of allMessages) {
+            if(val.data[0].login === current){
+                messages.innerHTML = "";
+                val.data.forEach(obj => {
+                    messages.innerHTML += `<span>${obj.login} : ${obj.message}</span><br>`;
+
+                })
+            }
+        }
+    }
+</script>

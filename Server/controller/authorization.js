@@ -35,21 +35,25 @@ exports.login = async (req, res, next) => {
                         })//.then(r => Console.log(r))
                     //.catch(r => Console.log(` жопа ${r}`));
 
-                    const accessToken = jwt.sign({id: auth.id, login: auth.login, role: auth.role}, accessKey, {expiresIn: 3600});
-                    const refreshToken = jwt.sign({id: auth.id, login: auth.login, role: auth.role}, refreshKey, {expiresIn: 24 * 3600});
+                    const accessToken = jwt.sign({
+                        id: auth.id,
+                        login: auth.login,
+                        role: auth.role
+                    }, accessKey, {expiresIn: 3600});
+
+                    const refreshToken = jwt.sign({
+                        id: auth.id,
+                        login: auth.login,
+                        role: auth.role
+                    }, refreshKey, {expiresIn: 24 * 3600});
 
                     res.cookie('accessToken', accessToken, {
                         httpOnly: true,
                         sameSite: 'strict'
                     });
-                    res.cookie('id', auth.id, {
-                        httpOnly: true,
-                        sameSite: 'strict'
-                    });
                     res.cookie('refreshToken', refreshToken, {
                         httpOnly: true,
-                        sameSite: 'strict',
-                        path: '/refresh-token'
+                        sameSite: 'strict'
                     });
                     //res.redirect('/belstu_fit');
                     res.status(200).json({status: "ok"})

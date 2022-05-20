@@ -100,7 +100,7 @@ const addinfoUser = () =>{
 
     console.log(birthdayCheck)
     if(nameCheck&&surnameCheck&&middle_nameCheck&&birthdayCheck&&mailCheck&&phoneCheck){
-        fetch("http://localhost:5000/belstu_fit/userinfo/add", /*TODO link*/{
+        fetch("https://Eingeschriebener/belstu_fit/userinfo/add", /*TODO link*/{
             method : 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

@@ -15,11 +15,14 @@ path.pop();
 exports.mainPage = async (req, res, next) => {
     switch (req.method) {
         case "GET":
+            console.log(req.ability.can(rule.enrollee) ? true : false)
             res.render(
                 'belstuFitMain',
                 {
                     title: "BelSTU",
-                    css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
+                    css: `<!--<link rel='stylesheet' href='/css/search.css'>-->
+                            <link rel='stylesheet' href='/css/dialog.css'>`,//TODO CSS
+                    enrollee: req.ability.can(rule.enrol) ? true : false
                 });
             break;
         default:
@@ -275,7 +278,8 @@ exports.checkFiling = async (req, res, next) => {
             if (req.ability.can(rule.enrol)) {
                 let id = parseInt(req.payload.id)
                 let mess = true
-                Users_data.findOne({
+
+                let userDataMarks = await Users_data.findOne({
                     where: {
                         id_auth: id
                     },
@@ -284,20 +288,20 @@ exports.checkFiling = async (req, res, next) => {
                         required: true
                     }]
                 })
-                .then(r => {
-                    r.Users_marks.forEach(m => {
+                if(userDataMarks === null){
+                    res.status(200).json({"status":"Not info about user"})
+                    mess = false
+                }
+                else{
+                    userDataMarks.Users_marks.forEach(m => {
                         if(m.math === 0 || m.phys === 0 || m.lang === 0 || m.att === 0){
                             //mess = "Not all CT"
                             res.status(200).json({"status":"Not all CT"})
                             mess = false
                         }
                     })
-                })
-                .catch(() => {
-                    res.status(200).json({"status":"Not info about user"})
-                    mess = false
-                    //mess = "Not info about user"
-                })
+                }
+
                 if(mess){
                     Users_data.findOne({
                         where: {
@@ -346,7 +350,7 @@ exports.filing = async (req, res, next) => {
         case "GET":
             if (req.ability.can(rule.enrol)) {
                 res.render(
-                    'belstuFitApplication',
+                    'belstuFitApplications',
                     {
                         title: "AddApplication",
                         css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS

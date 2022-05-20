@@ -11,7 +11,7 @@ const {where} = require("sequelize");
 
 path.pop();
 
-//http://localhost:5000/belstu_fit/admin
+//https://Eingeschriebener/belstu_fit/admin
 exports.admin = async (req, res, next) => {
     switch (req.method) {
         case "GET":
@@ -21,7 +21,8 @@ exports.admin = async (req, res, next) => {
                         'belstuFitAdmin',
                         {
                             title: "Admin",
-                            css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
+                            css: `<!--<link rel='stylesheet' href='/css/search.css'>-->
+                                    <link rel='stylesheet' href='/css/dialog.css'>`//TODO CSS
                         });
                     break
                 }
@@ -43,7 +44,7 @@ exports.admin = async (req, res, next) => {
     }
 }
 
-//http://localhost:5000/belstu_fit/admin/all_good_application
+//https://Eingeschriebener/belstu_fit/admin/all_good_application
 exports.allGoodApplication = async (req, res, next) => {
     switch (req.method) {
         case "POST":
@@ -116,7 +117,7 @@ exports.allBadApplication = async (req, res, next) => {
     }
 }
 
-//http://localhost:5000/belstu_fit/admin/all_bad_application/approve
+//https://Eingeschriebener/belstu_fit/admin/all_bad_application/approve
 exports.approveBadApplication = (req, res, next) => {
     switch (req.method) {
         case "POST":

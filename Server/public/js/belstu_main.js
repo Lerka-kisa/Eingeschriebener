@@ -84,7 +84,7 @@ const monitoring = (json, cont) => {
 }
 
 const GetRating = (cont) => {
-    fetch("http://localhost:5000/belstu_fit/getrating", /*TODO link*/{
+    fetch("https://Eingeschriebener/belstu_fit/getrating", /*TODO link*/{
         method : 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -118,7 +118,7 @@ GetRating("budgetary")
 GetRating("paid")
 
 const checkUserFiling = () => {
-    fetch("http://localhost:5000/belstu_fit/check_filing", /*TODO link*/{
+    fetch("https://Eingeschriebener/belstu_fit/check_filing", /*TODO link*/{
         method : 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

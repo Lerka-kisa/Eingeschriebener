@@ -3,8 +3,6 @@ const path = __dirname.split('\\');
 const {University_data, Entry_threshold, Faculty_data, Speciality_data} = require("../model/universities");
 const {accessKey, refreshKey} = require("../security/jwtKeys");
 const {Sequelize} = require("../model/contextDB");
-const Console = require("console");
-const {GetAllUnivers, GetAllUnivers_paid} = require("../db");
 
 path.pop();
 

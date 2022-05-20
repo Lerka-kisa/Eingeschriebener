@@ -22,7 +22,7 @@ let changeMarksList = `<form name="belstu_fit" action="/belstu_fit/userinfo/mark
     </div>
 </form>
 or<br/>
-<button onclick="window.location.href = 'http://localhost:5000/belstu_fit/userinfo'">Назад</button>`
+<button onclick="window.location.href = 'https://Eingeschriebener/belstu_fit/userinfo'">Назад</button>`
 
 let changeApplicationList = `<form name="belstu_fit" action="/belstu_fit/userinfo/change_filing" method="POST">
     <div id="priority">Расставтье приоритеты, по принципу: на какую специальность больше хочу, та 1 и т.д.
@@ -131,7 +131,7 @@ let changeApplicationList = `<form name="belstu_fit" action="/belstu_fit/userinf
 </form>`
 
 const userpage = () => {
-    fetch("http://localhost:5000/belstu_fit/userinfo/data", /*TODO link*/{
+    fetch("https://Eingeschriebener/belstu_fit/userinfo/data", /*TODO link*/{
         method : 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -150,7 +150,7 @@ const userpage = () => {
 }
 
 const your_application = () => {
-    fetch("http://localhost:5000/belstu_fit/userinfo/application", /*TODO link*/{
+    fetch("https://Eingeschriebener/belstu_fit/userinfo/application", /*TODO link*/{
         method : 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -205,13 +205,13 @@ const userData = (jsonArr) => {
                 list += `<div className="userinfo__data__mail" style="font-size: 18px">Аттестат: ${mark.att}</div>`
             }
             list += `<div class="upd_CT">
-                        <button onclick="changeMarks()/*window.location.href = 'http://localhost:5000/belstu_fit/userinfo/marks';*/">Добавить/изменить</button>
+                        <button onclick="changeMarks()/*window.location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';*/">Добавить/изменить</button>
                     </div>`
         }
         else{
             list +=` не заполнено `
             list += `<div class="upd_CT">
-                        <button onclick= "changeMarks()"><!--"window.location.href = 'http://localhost:5000/belstu_fit/userinfo/marks';"-->Добавить</button>
+                        <button onclick= "changeMarks()"><!--"window.location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';"-->Добавить</button>
                     </div>`
         }
         list += `</div>`
@@ -280,7 +280,7 @@ const userApp = (jsonArr) => {
                         Статус: ${status}<br/>
                 </div>`
             list +=`<div class="upd_App">
-                        <button onclick= "changePriority()"><!--"window.location.href = 'http://localhost:5000/belstu_fit/userinfo/marks';"-->Поменять приоритеты</button>
+                        <button onclick= "changePriority()"><!--"window.location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';"-->Поменять приоритеты</button>
                     </div>`
         })
     }

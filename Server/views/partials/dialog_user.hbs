@@ -1,0 +1,63 @@
+<div id="dialog_chat_user">
+    <div id="dialog_indicator">Manager
+        <div id="dialog_status"> </div>
+    </div>
+    <div id="dialog_messages">
+
+    </div>
+    <input id="dialog_input" type="text" name="user_message">
+    <input id="dialog_send" type="button" value="Отправить">
+</div>
+
+<script>
+    const ws = new WebSocket('wss://Eingeschriebener');
+    const input = document.getElementById("dialog_input");
+    const send = document.getElementById("dialog_send");
+    let messages = document.getElementById("dialog_messages");
+    let status = document.getElementById("dialog_status");
+
+    send.addEventListener("click", () => {
+        if(input.value !== "")
+            ws.send(JSON.stringify({action: "message", message: input.value }));
+
+        input.value = "";
+    })
+
+    ws.onopen = () => {
+        console.log("open wss");
+    };
+
+    setTimeout(() => {
+        ws.send(JSON.stringify({action: "online"}))
+    }, 500)
+
+    ws.onmessage = (response) => {
+        let data = JSON.parse(response.data);
+        if(data.online === true){
+            status.style.backgroundColor = "#11ff00";
+        }else if(data.online === false){
+            status.style.backgroundColor = "red";
+        }
+        else {
+            data.data.forEach(message => {
+
+                if(message.online === true){
+                    status.style.backgroundColor = "#11ff00";
+                }else if(message.online === false){
+                    status.style.backgroundColor = "red";
+                }
+                messages.innerHTML += `<span>${message.login} : ${message.message}</span><br>`;
+            })
+        }
+    };
+
+    ws.onerror = (err) => {
+        status.style.backgroundColor = "red";
+    }
+
+    /*    let iterator = 0;
+        setInterval(() => {
+            ws.send(JSON.stringify({action: "message", message: `any ${iterator++}`   }))
+        },10000)*/
+
+</script>

@@ -83,7 +83,7 @@ const registUser = () =>{
     let password = document.getElementById("password").value;
 
     if(repeatCheck&&loginCheck&&passwordCheck){
-        fetch("http://localhost:5000/auth/register", /*TODO link*/{
+        fetch("https://Eingeschriebener/auth/register", /*TODO link*/{
             method : 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

@@ -11,6 +11,7 @@ const {accessKey} = require("./security/jwtKeys");
 const {Guest} = require("./security/roles");
 const {GetAbilityFor} = require("./security/privilegies");
 
+
 const express = require("express");
 const app = express()
 const authRouter = require("./route/auth");
@@ -20,8 +21,8 @@ const fs = require("fs");
 
 //const adminRouter = require("./route/admin");
 
-const PORT = process.env.PORT || 5000;
-//const PORT = process.env.PORT || 443; //TODO https
+//const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 443; //TODO https
 
 let options = {
     key: fs.readFileSync('./security/certificate/RS-Eingeschriebener-RSA.key').toString(),
@@ -76,17 +77,24 @@ app.use("/belstu_fit", fitRouter);
 
 
 
-/*https.createServer(options, app).listen(PORT, ()=>{
-    console.log(`Server listening http://localhost:${PORT}/belstu_fit`);
-})
-    .on('Error', (err) => {
-        console.log(`Error: ${err.code}`);
-    })*/ //TODO https
+let server = https.createServer(options, app)
 
-app.listen(PORT, ()=>{
-    //console.log(`Server listening http://localhost:${PORT}/univers/startpage`);
-    console.log(`Server listening http://localhost:5000/belstu_fit`);
+module.exports = {server}
+require('./ws/websocket');
+
+server.listen(PORT, ()=>{
+    console.log(`Server listening https://localhost:${PORT}/belstu_fit`);
 })
-    .on('Error', (err) => {
-        console.log(`Error: ${err.code}`);
-    })
+.on('Error', (err) => {
+    console.log(`Error: ${err.code}`);
+}) //TODO https
+
+
+
+// app.listen(PORT, ()=>{
+//     //console.log(`Server listening http://localhost:${PORT}/univers/startpage`);
+//     console.log(`Server listening https://Eingeschriebener/belstu_fit`);
+// })
+//     .on('Error', (err) => {
+//         console.log(`Error: ${err.code}`);
+//     })

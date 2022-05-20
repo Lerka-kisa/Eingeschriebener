@@ -12,7 +12,7 @@ const send = () =>{
     });
 
     //fetch("https://localhost:443/univers/offer", /*TODO https*/{
-    fetch("http://localhost:5000/univers/offer", /*TODO link*/{
+    fetch("https://Eingeschriebener/univers/offer", /*TODO link*/{
         method : 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -40,7 +40,7 @@ const send = () =>{
 }
 const getAll = () =>{
     //fetch("https://localhost:443/univers/offer", /*TODO https*/{
-    fetch("http://localhost:5000/univers/offer", /*TODO link*/{
+    fetch("https://Eingeschriebener/univers/offer", /*TODO link*/{
         method : 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -60,7 +60,7 @@ const getAll = () =>{
 
 const getUniver = (id) => {
     console.log(`${id} univer`)
-    fetch(`http://localhost:5000/univers/offer/${id}`, /*TODO link*/{
+    fetch(`https://Eingeschriebener/univers/offer/${id}`, /*TODO link*/{
         method : 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

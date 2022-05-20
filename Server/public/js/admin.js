@@ -57,7 +57,7 @@ const formationGoodApplications = (json, cont) => {
 }
 
 const getGoogApplications = (cont) => {
-    fetch("http://localhost:5000/belstu_fit/admin/all_good_application", /*TODO link*/{
+    fetch("https://Eingeschriebener/belstu_fit/admin/all_good_application", /*TODO link*/{
         method : 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -146,7 +146,7 @@ const formationBadApplications = (json, cont) => {
 }
 
 const getBadApplications = (cont) => {
-    fetch("http://localhost:5000/belstu_fit/admin/all_bad_application", /*TODO link*/{
+    fetch("https://Eingeschriebener/belstu_fit/admin/all_bad_application", /*TODO link*/{
         method : 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

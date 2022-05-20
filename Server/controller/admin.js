@@ -18,7 +18,7 @@ exports.admin = async (req, res, next) => {
             try {
                 if (req.ability.can(rule.admin)) {
                     res.render(
-                        'belstuFitAdmin',
+                        'fitAdmin',
                         {
                             title: "Admin",
                             css: `<!--<link rel='stylesheet' href='/css/search.css'>-->
@@ -170,6 +170,43 @@ exports.approveBadApplication = (req, res, next) => {
             //     })
             //     .catch(err =>  res.send(err.message));
             break;
+        default:
+            res.statusCode = 405;
+            res.messageerror = "Method not allowed";
+            res.end();
+    }
+}
+
+//https://Eingeschriebener/belstu_fit/admin/all_bad_application/delete
+exports.deleteBadApplication = (req, res, next) => {
+
+    switch (req.method) {
+        case "POST":
+            try {
+                if (req.ability.can(rule.admin)) {
+                    let id = req.body.id
+                    Overall_rating.destroy({
+                        where: {id: id}
+                    })
+                        .then(() => {
+                            //res.redirect('/belstu_fit/admin');
+                            res.status(200).json({status: "ok"})
+                        })
+                        .catch(err => {
+                            //res.send("Delete info is not successful")
+                            res.status(200).json({status: "not ok"})
+                        })
+                    break;
+                }
+                else{
+                    res.redirect('/auth/login')
+                    break
+                }
+            } catch (err) {
+                Error.Error500(res, err);
+            }
+            break;
+
         default:
             res.statusCode = 405;
             res.messageerror = "Method not allowed";

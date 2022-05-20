@@ -1,4 +1,4 @@
 # Project exclude paths
-/Server/node_modules/
-/Server/security/certificate/
+/Server/node_modules/!/Server/security/certificate/
 /Server/model/contextDB.js
+/Server/security/certificate/

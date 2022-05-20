@@ -1,12 +1,8 @@
 const Sequelize = require('sequelize');
 const Model = Sequelize.Model;
 
-const sequelize = new Sequelize(
-    'Eingeschriebener',
-    "root",
-    "9I50ybkubu",
-    {host: 'localhost', dialect: 'mariadb'}
-
+const sequelize = new Sequelize('Eingeschriebener', "LERA", "Nata_5442488",
+    {host: 'localhost', dialect: 'mssql'}
 );
 
 let start = setInterval(() =>

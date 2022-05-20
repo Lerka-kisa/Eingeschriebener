@@ -14,6 +14,7 @@ router.use("/userinfo", fitController.userinfo);
 
 router.use("/admin/all_good_application",adminController.allGoodApplication)
 router.use("/admin/all_bad_application/approve",adminController.approveBadApplication)
+router.use("/admin/all_bad_application/delete",adminController.deleteBadApplication)
 router.use("/admin/all_bad_application",adminController.allBadApplication)
 router.use("/admin",adminController.admin)
 

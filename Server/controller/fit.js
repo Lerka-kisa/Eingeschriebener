@@ -17,7 +17,7 @@ exports.mainPage = async (req, res, next) => {
         case "GET":
             console.log(req.ability.can(rule.enrollee) ? true : false)
             res.render(
-                'belstuFitMain',
+                'fitMain',
                 {
                     title: "BelSTU",
                     css: `<!--<link rel='stylesheet' href='/css/search.css'>-->
@@ -48,7 +48,7 @@ exports.userinfo = async (req, res, next) => {
                 if (req.ability.can(rule.enrol)) {
                     console.log("lol")
                     res.render(
-                        'belstuFitUserAccount',
+                        'fitUserAccount',
                         {
                             title: "UserAccount",
                             css: `<link rel='stylesheet' href='/css/search.css'>`,//TODO CSS
@@ -167,7 +167,7 @@ exports.addInfo = async (req, res, next) => {
         case "GET":
             if (req.ability.can(rule.enrol)) {
                 res.render(
-                    'belstuFitUserAddInfo',
+                    'fitUserAddInfo',
                     {
                         title: "AddInfo",
                         css: `<link rel='stylesheet' href='/css/search.css'>`,//TODO CSS
@@ -353,7 +353,7 @@ exports.filing = async (req, res, next) => {
         case "GET":
             if (req.ability.can(rule.enrol)) {
                 res.render(
-                    'belstuFitApplications',
+                    'fitApplications',
                     {
                         title: "AddApplication",
                         css: `<link rel='stylesheet' href='/css/search.css'>`,//TODO CSS
@@ -439,7 +439,7 @@ exports.changeFiling = async (req, res, next) => {
             if (req.ability.can(rule.enrol)){
                 res.sendFile(path.join("\\") + "\\views\\change_application.html");
                 // res.render(
-                //     'belstuFitApplication',
+                //     'fitApplication',
                 //     {
                 //         title: "AddApplication",
                 //         css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS

@@ -117,6 +117,7 @@ exports.offer = (req, res, next) => {
             res.end();
     }
 }
+
 exports.offerById = (req, res, next) => {
     switch (req.method) {
         case "GET":

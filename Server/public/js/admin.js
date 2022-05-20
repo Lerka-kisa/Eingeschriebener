@@ -1,4 +1,5 @@
 /*Кнопка админа на все одобренные заявки*/
+let badApp = 0
 const formationGoodApplications = (json, cont) => {
     let list = ""
     let contract
@@ -105,7 +106,7 @@ const formationBadApplications = (json, cont) => {
     list +=`<div id="admin_bad_application_${cont}">
                 На ${contract}:
                 <table id="admin_bad_application_${cont}_table" style="border-collapse: collapse;">
-                    <tr>
+                    <tr id="header_bad_table_${cont}">
                         <th>ФИО</th>
                         <th>М</th>
                         <th>Ф</th>
@@ -117,13 +118,15 @@ const formationBadApplications = (json, cont) => {
                         <th>ПОИБМС</th>
                         <th>ДЭиВИ</th>
                         <th>Одобрить</th>
+                        <th>Удалить</th>
                     </tr>`
 
     json.forEach(elem =>{
         console.log(elem)
 
         elem.Overall_ratings.forEach(fil => {
-            list += `<tr>
+            badApp++
+            list += `<tr id="id_${fil.id}">
                 <td>${elem.surname} ${elem.name} ${elem.middle_name}</td>
                 <td>${fil.math}</td>
                 <td>${fil.phys}</td>
@@ -134,7 +137,8 @@ const formationBadApplications = (json, cont) => {
                 <td>${fil.ISIT}</td>
                 <td>${fil.POIBMS}</td>
                 <td>${fil.DEIVI}</td>
-                <td onclick="approve_app(${fil.id})">кнопка</td>
+                <td onclick="approve_app(${fil.id})">Одобрить</td>
+                <td onclick="delete_app(${fil.id},'${cont}')">Удалить</td>
         </tr>
 <div id="form_approve${fil.id}"></div>`
             //console.log(fil.sum)
@@ -195,5 +199,46 @@ const approve_app = (id) => {
     </div>
 </form>`
     document.getElementById(`form_approve${id}`).innerHTML = list
+}
+
+const delete_app = (id,cont) => {
+    fetch("https://Eingeschriebener/belstu_fit/admin/all_bad_application/delete", /*TODO link*/{
+        method : 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(
+            {
+                id : id
+            })
+    }).then(response => {return response.json()})
+        .then(result => {
+            //console.log(result)
+            if(result.status === "not ok"){
+                console.log("jopa")
+            }
+            if(result.status === "ok"){
+                badApp--
+                //console.log(badApp)
+                if(badApp === 0 ){
+                    document.getElementById(`id_${id}`).remove()
+                    document.getElementById(`header_bad_table_${cont}`).remove()
+                    let contract = ""
+                    if (cont === "budgetary"){
+                        contract = "бюджет"
+                    }
+                    else {
+                        contract = "платку"
+                    }
+                    document.getElementById(`view__table__${cont}`).innerHTML = `На ${contract} нет заявок для обработки(((`
+                }
+                else{
+                    document.getElementById(`id_${id}`).remove()
+                }
+            }
+        })
+        .catch(err => {
+            console.log(err.message)
+        })
 }
 

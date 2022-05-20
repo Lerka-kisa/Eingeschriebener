@@ -12,7 +12,7 @@ exports.login = async (req, res, next) => {
     switch (req.method) {
         case "GET":
             res.render(
-                'belstuFitAuthorization',
+                'fitAuthorization',
                 {
                     title: "Authorization",
                     css: `<link rel='stylesheet' href='/css/authorization.css'>`,//TODO CSS
@@ -78,7 +78,7 @@ exports.register = (req, res, next) => {
     switch (req.method) {
         case "GET":
             res.render(
-                'belstuFitRegistration',
+                'fitRegistration',
                 {
                     title: "Registration",
                     css: `<link rel='stylesheet' href='/css/registration.css'>`,//TODO CSS

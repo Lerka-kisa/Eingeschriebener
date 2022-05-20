@@ -83,7 +83,7 @@ module.exports = {server}
 require('./ws/websocket');
 
 server.listen(PORT, ()=>{
-    console.log(`Server listening https://localhost:${PORT}/belstu_fit`);
+    console.log(`Server listening https://eingeschriebener/univers/startpage`);
 })
 .on('Error', (err) => {
     console.log(`Error: ${err.code}`);

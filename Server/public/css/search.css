@@ -50,10 +50,11 @@ input:focus {
     color: #0B7FAB;
 }
 
+/*
 button {
     float:right;
     height: 70px;
-    /*width: 100px;*/
+    !*width: 100px;*!
     border: 0px;
     background: #0B7FAB;
     border-radius:7px;
@@ -61,20 +62,7 @@ button {
     color:white;
     font-size:22px;
 }
-
-.inputUserIcon {
-    position:absolute;
-    top:68px;
-    right: 80px;
-    color:white;
-}
-
-.inputPassIcon {
-    position:absolute;
-    top:136px;
-    right: 80px;
-    color:white;
-}
+*/
 
 input::-webkit-input-placeholder {
     color: white;

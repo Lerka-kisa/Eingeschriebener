@@ -13,7 +13,7 @@ exports.startpage = async (req, res, next) => {
                 'kudapostupatMain',
                 {
                     title: "Search univers",
-                    css: `<link rel='stylesheet' href='/css/search.css'>`
+                    css: ['search']
                 });
             break;
         default:

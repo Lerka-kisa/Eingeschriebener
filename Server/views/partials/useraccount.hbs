@@ -1,4 +1,80 @@
-<div style="horiz-align: center; font-size: 20px">
-    <div onclick="userpage()">Your account</div>
+<div class="userinfo hidden">
+    {{#with data}}
+        <div class="userinfo-data userinfo-general">
+            <div class="userinfo-data-head userinfo-general-head">
+                Личная информация
+            </div>
+            <div class="userinfo-rows">
+                <div class="userinfo-row">Фамилия: {{this.middle_name}}</div>
+                <div class="userinfo-row">Имя: {{this.name}}</div>
+                <div class="userinfo-row">Отчество: {{this.surname}}</div>
+                <div class="userinfo-row">День рождения: {{this.date_of_birth}}</div>
+                <div class="userinfo-row">Адрес: {{this.address}}</div>
+                <div class="userinfo-row">Почта: {{this.mail}}</div>
+                <div class="userinfo-row">Номер телефона: {{this.number}}</div>
+            </div>
+        </div>
+    {{/with}}
+
+    {{#if marks}}
+        {{#with marks}}
+            <div class="userinfo-marks userinfo-general">
+                <div class="userinfo-marks-head userinfo-general-head">
+                    Мои баллы
+                </div>
+                <div class="userinfo-rows">
+                    <div class="userinfo-row">Математика: {{this.math}}</div>
+                    <div class="userinfo-row">Физика: {{this.phys}}</div>
+                    <div class="userinfo-row">Русский/белорусский: {{this.lang}}</div>
+                    <div class="userinfo-row">Аттестат: {{this.att}}</div>
+                </div>
+            </div>
+        {{/with}}
+    {{else}}
+        <div class="userinfo-button">
+            <button class="userinfo-button">
+                Добавить/изменить
+            </button>
+        </div>
+    {{/if}}
+
+    {{#with rating}}
+        <div class="userinfo-status userinfo-general">
+            <div class="userinfo-marks-head userinfo-general-head">
+                Моя заявка
+            </div>
+            <div class="userinfo-rows">
+                {{#if this.confirm}}
+                    <div class="status confirm">
+                        Участвует в конкурсе<br/>
+                    </div>
+                    <div>
+                        Номер дела: {{this.file_number}}
+                    </div>
+                {{else}}
+                    <div id="status processing">
+                        В обработке
+                    </div>
+                {{/if}}
+                <div class="status-info">
+                    <div class="userinfo-row">Ваши баллы: {{this.sum}}</div>
+                    <div class="userinfo-row">Приоритеты:</div>
+                    <div class="userinfo-row">ПОИТ: {{this.POIT}}</div>
+                    <div class="userinfo-row">ИСИТ: {{this.ISIT}}</div>
+                    <div class="userinfo-row">ПОИБмС: {{this.POIBMS}}</div>
+                    <div class="userinfo-row">ДЭиВИ: {{this.DEIVI}}</div>
+                </div>
+                    <button class="userinfo-button">
+                        Поменять приоритеты
+                    </button>
+
+            </div>
+        </div>
+    {{/with}}
 </div>
-<script src="/js/account.js"></script>
+
+
+<!--"window.location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';"-->
+<!--
+/*window.location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';*/"
+-->

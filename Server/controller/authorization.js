@@ -15,7 +15,7 @@ exports.login = async (req, res, next) => {
                 'fitAuthorization',
                 {
                     title: "Authorization",
-                    css: `<link rel='stylesheet' href='/css/authorization.css'>`,//TODO CSS
+                    css: ['authorization'],
                     auth: false
 
                 });
@@ -81,7 +81,7 @@ exports.register = (req, res, next) => {
                 'fitRegistration',
                 {
                     title: "Registration",
-                    css: `<link rel='stylesheet' href='/css/registration.css'>`,//TODO CSS
+                    css: ['registration'],
                     auth: false
                 });
             //res.sendFile(path.join("\\") + "\\views\\register.html");

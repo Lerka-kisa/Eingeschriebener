@@ -15,14 +15,12 @@ path.pop();
 exports.mainPage = async (req, res, next) => {
     switch (req.method) {
         case "GET":
-            console.log(req.ability.can(rule.enrollee) ? true : false)
             res.render(
                 'fitMain',
                 {
                     title: "BelSTU",
-                    css: `<!--<link rel='stylesheet' href='/css/search.css'>-->
-                            <link rel='stylesheet' href='/css/dialog.css'>`,//TODO CSS
-                    enrollee: req.ability.can(rule.enrol) ? true : false,
+                    css: ['search', 'dialog'],
+                    enrollee: req.ability.can(rule.enrol),
                     auth: true
                 });
             break;
@@ -38,20 +36,40 @@ exports.userinfo = async (req, res, next) => {
     switch (req.method) {
         case "GET":
             try {
-                //req.ability
+
                 if (req.ability.can(rule.admin)) {
-                    //res.status(200).send("Hurray, you are admin");
-                    //res.status(200).send({error: 2})
                     res.redirect('/belstu_fit/admin')
                     break
                 }
                 if (req.ability.can(rule.enrol)) {
-                    console.log("lol")
+                    let userData = await Users_data.findOne({
+                        raw: true,
+                        nest: true,
+                        where: {
+                            id_auth: req.payload.id
+                        },
+                        include: [
+                            {
+                                required: true,
+                                model: Users_marks,
+                                separate: false,
+                                attributes: ["math", "phys", "lang", "att"]
+                            },
+                            {
+                                required: true,
+                                model: Overall_rating
+                        }]
+                    })
+                    console.log(userData);
+
                     res.render(
                         'fitUserAccount',
                         {
                             title: "UserAccount",
-                            css: `<link rel='stylesheet' href='/css/search.css'>`,//TODO CSS
+                            css: ['search', 'userinfo'],
+                            data: userData,
+                            marks: userData.Users_marks,
+                            rating: userData.Overall_ratings,
                             auth: true
                         });
                     break
@@ -75,6 +93,7 @@ exports.userinfo = async (req, res, next) => {
 }
 
 //Личные данные юзера и его баллы
+/*
 exports.userinfodata = async (req, res, next) => {
     switch (req.method) {
         case "GET":
@@ -94,14 +113,11 @@ exports.userinfodata = async (req, res, next) => {
                         .then(r => {
                             if (r.length === 0) {
                                 res.status(200).json({error: "noinfo"});
-                                //res.redirect('/belstu_fit/userinfo/add');
                             } else {
-                                console.log(r)
                                 res.status(200).json(r);
                             }
                         })
                         .catch(err => res.send(err.message));
-                    return
                 } catch (err) {
                     Error.Error500(res, err);
                 }
@@ -117,8 +133,10 @@ exports.userinfodata = async (req, res, next) => {
             res.end();
     }
 }
+*/
 
 //Заявка юзера
+/*
 exports.userApplication = async (req, res, next) => {
     switch (req.method) {
         case "GET":
@@ -159,6 +177,7 @@ exports.userApplication = async (req, res, next) => {
             res.end();
     }
 }
+*/
 
 //Заполнение личных данных юзера
 //TODO мб сделать изменение личных данных?????
@@ -170,7 +189,7 @@ exports.addInfo = async (req, res, next) => {
                     'fitUserAddInfo',
                     {
                         title: "AddInfo",
-                        css: `<link rel='stylesheet' href='/css/search.css'>`,//TODO CSS
+                        css: ['search'],
                         auth: true
                     });
             }
@@ -356,7 +375,7 @@ exports.filing = async (req, res, next) => {
                     'fitApplications',
                     {
                         title: "AddApplication",
-                        css: `<link rel='stylesheet' href='/css/search.css'>`,//TODO CSS
+                        css: ['search'],
                         auth: true
                     }
                 );
@@ -386,7 +405,6 @@ exports.filing = async (req, res, next) => {
                 attributes:["id"],
                 include: [{
                     model: Users_marks,
-                    attributes:[],
                     required: true,
                     attributes:["math","phys","lang","att"]
                 }]}).then(r => {

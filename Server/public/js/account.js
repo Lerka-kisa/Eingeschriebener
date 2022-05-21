@@ -1,5 +1,4 @@
-//const {Users_data, Users_marks, Overall_rating} = require("../../views/usersMarks.html");
-//let fs = require('fs');
+
 let changeMarksList = `<form name="belstu_fit" action="/belstu_fit/userinfo/marks" method="POST">
     <label for="math">Математика:
         <input id="math" type="number" max="100" min="0" name="math" placeholder="0" value="0">
@@ -130,8 +129,9 @@ let changeApplicationList = `<form name="belstu_fit" action="/belstu_fit/userinf
     </div>
 </form>`
 
+/*
 const userpage = () => {
-    fetch("https://Eingeschriebener/belstu_fit/userinfo/data", /*TODO link*/{
+    fetch("https://Eingeschriebener/belstu_fit/userinfo/data", /!*TODO link*!/{
         method : 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -148,9 +148,10 @@ const userpage = () => {
             }
         })
 }
+*/
 
-const your_application = () => {
-    fetch("https://Eingeschriebener/belstu_fit/userinfo/application", /*TODO link*/{
+/*const your_application = () => {
+    fetch("https://Eingeschriebener/belstu_fit/userinfo/application", /!*TODO link*!/{
         method : 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -169,43 +170,39 @@ const your_application = () => {
                 document.getElementById("your_application").innerHTML = userApp(result)
             }
         })
-}
-
+}*/
+/*
 const userData = (jsonArr) => {
-    ////console.log(jsonArr)
     let json = jsonArr[0];
-    ////console.log(json.name + " " + json.surname)
     let date = new Date(json.date_of_birth);
-    ////console.log(date)
     let year = date.getFullYear()
     let month = date.getMonth()
     let day = date.getDate()
-    //console.log( `${day}.${month+1}.${year}`)
     let list = ""
     list += `<div class="userinfo__data">
-            <div class="userinfo__data__fio" style="font-size: 30px">${json.surname} ${json.name} ${json.middle_name}</div>            
-            <div class="userinfo__data__birthday" style="font-size: 18px">День рождения: ${day}.${month+1}.${year}</div>            
-            <div class="userinfo__data__address" style="font-size: 18px">Адрес: ${json.address}</div>            
-            <div class="userinfo__data__mail" style="font-size: 18px">Почта: ${json.mail}</div>            
-            <div class="userinfo__data__number" style="font-size: 18px">Номер телефона: ${json.number}</div>            
+            <div class="userinfo__data__fio" style="font-size: 30px">${json.surname} ${json.name} ${json.middle_name}</div>
+            <div class="userinfo__data__birthday" style="font-size: 18px">День рождения: ${day}.${month+1}.${year}</div>
+            <div class="userinfo__data__address" style="font-size: 18px">Адрес: ${json.address}</div>
+            <div class="userinfo__data__mail" style="font-size: 18px">Почта: ${json.mail}</div>
+            <div class="userinfo__data__number" style="font-size: 18px">Номер телефона: ${json.number}</div>
             </div>`
     list += `<div id="userinfo__marks">Баллы: `
     json.Users_marks.forEach(mark => {
         if(mark.math !== 0 || mark.phys !== 0 || mark.lang !== 0 || mark.att !== 0){
             if(mark.math !== 0){
-                list += `<div className="userinfo__data__mail" style="font-size: 18px">Математика: ${mark.math}</div>`
+                list += `<div class="userinfo__data__mail" style="font-size: 18px">Математика: ${mark.math}</div>`
             }
             if(mark.phys !== 0){
-                list += `<div className="userinfo__data__mail" style="font-size: 18px">Физика: ${mark.phys}</div>`
+                list += `<div class="userinfo__data__mail" style="font-size: 18px">Физика: ${mark.phys}</div>`
             }
             if(mark.lang !== 0){
-                list += `<div className="userinfo__data__mail" style="font-size: 18px">Русский/белорусский: ${mark.lang}</div>`
+                list += `<div class="userinfo__data__mail" style="font-size: 18px">Русский/белорусский: ${mark.lang}</div>`
             }
             if(mark.att !== 0){
-                list += `<div className="userinfo__data__mail" style="font-size: 18px">Аттестат: ${mark.att}</div>`
+                list += `<div class="userinfo__data__mail" style="font-size: 18px">Аттестат: ${mark.att}</div>`
             }
             list += `<div class="upd_CT">
-                        <button onclick="changeMarks()/*window.location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';*/">Добавить/изменить</button>
+                        <button onclick="changeMarks()/!*window.location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';*!/">Добавить/изменить</button>
                     </div>`
         }
         else{
@@ -239,7 +236,8 @@ const userData = (jsonArr) => {
     list += `<div id="your_application"></div>`
     your_application()
     return list
-}
+}*/
+
 const changeMarks = () => {
     //require('fs').readFile("../../views/usersMarks.html", "utf8", text =>{
     //document.getElementById("userinfo__marks").innerHTML = text
@@ -254,6 +252,7 @@ const changePriority = () => {
     document.getElementById("your_application").innerHTML = changeApplicationList
 
 }
+/*
 const userApp = (jsonArr) => {
     let json = jsonArr[0];
     let list = ""
@@ -292,6 +291,9 @@ const userApp = (jsonArr) => {
     // }
     return list;
 }
+*/
+/*
 
 userpage()
+*/
 

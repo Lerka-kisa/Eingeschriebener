@@ -28,14 +28,17 @@
                     <div class="userinfo-row">Русский/белорусский: {{this.lang}}</div>
                     <div class="userinfo-row">Аттестат: {{this.att}}</div>
                 </div>
+                {{#if this.zero}}
+                    <button class="userinfo-button" onclick="location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';">
+                       Добавить
+                    </button>
+                {{else}}
+                    <button class="userinfo-button" onclick="location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';">
+                        Изменить
+                    </button>
+                {{/if}}
             </div>
         {{/with}}
-    {{else}}
-        <div class="userinfo-button">
-            <button class="userinfo-button">
-                Добавить/изменить
-            </button>
-        </div>
     {{/if}}
 
     {{#with rating}}
@@ -64,7 +67,7 @@
                     <div class="userinfo-row">ПОИБмС: {{this.POIBMS}}</div>
                     <div class="userinfo-row">ДЭиВИ: {{this.DEIVI}}</div>
                 </div>
-                    <button class="userinfo-button">
+                    <button class="userinfo-button" onclick="location.href = 'https://Eingeschriebener/belstu_fit/userinfo/change_filing';">
                         Поменять приоритеты
                     </button>
 
@@ -74,7 +77,7 @@
 </div>
 
 
-<!--"window.location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';"-->
+<!--"location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';"-->
 <!--
 /*window.location.href = 'https://Eingeschriebener/belstu_fit/userinfo/marks';*/"
 -->

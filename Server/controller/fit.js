@@ -60,7 +60,13 @@ exports.userinfo = async (req, res, next) => {
                                 model: Overall_rating
                         }]
                     })
-                    console.log(userData);
+
+                   /* userData.Users_marks.zero = false;*/
+
+                    for (const key  in userData.Users_marks) {
+                        if(userData.Users_marks[key] === 0)
+                            userData.Users_marks.zero = true;
+                    }
 
                     res.render(
                         'fitUserAccount',
@@ -91,93 +97,6 @@ exports.userinfo = async (req, res, next) => {
             res.end();
     }
 }
-
-//Личные данные юзера и его баллы
-/*
-exports.userinfodata = async (req, res, next) => {
-    switch (req.method) {
-        case "GET":
-            if (req.ability.can(rule.enrol)) {
-                try {
-                    let id = parseInt(req.payload.id)
-                    Users_data.findAll({
-                        where: {
-                            id_auth: id
-                        },
-                        include: [{
-                            model: Users_marks,
-                            required: true,
-                            attributes: ["math", "phys", "lang", "att"]
-                        }]
-                    })
-                        .then(r => {
-                            if (r.length === 0) {
-                                res.status(200).json({error: "noinfo"});
-                            } else {
-                                res.status(200).json(r);
-                            }
-                        })
-                        .catch(err => res.send(err.message));
-                } catch (err) {
-                    Error.Error500(res, err);
-                }
-            }
-            else {
-                res.redirect('/auth/login')
-                break
-            }
-            break;
-        default:
-            res.statusCode = 405;
-            res.messageerror = "Method not allowed";
-            res.end();
-    }
-}
-*/
-
-//Заявка юзера
-/*
-exports.userApplication = async (req, res, next) => {
-    switch (req.method) {
-        case "GET":
-            if (req.ability.can(rule.enrol)) {
-                try {
-                    let id = parseInt(req.payload.id)
-                    Users_data.findAll({
-                        where: {
-                            id_auth: id
-                        },
-                        include: [{
-                            model: Overall_rating,
-                            required: true
-                        }]
-                    })
-                        .then(r => {
-                            if (r.length === 0) {
-                                res.status(200).json({error: "noinfo"});
-                                //res.redirect('/belstu_fit/userinfo/add');
-                            } else {
-                                res.status(200).json(r);
-                            }
-                        })
-                        .catch(err => res.send(err.message));
-                    return
-                } catch (err) {
-                    Error.Error500(res, err);
-                }
-            }
-            else {
-                res.redirect('/auth/login')
-                break
-            }
-            break;
-        default:
-            res.statusCode = 405;
-            res.messageerror = "Method not allowed";
-            res.end();
-    }
-}
-*/
 
 //Заполнение личных данных юзера
 //TODO мб сделать изменение личных данных?????
@@ -239,15 +158,36 @@ exports.addInfo = async (req, res, next) => {
 //Изменение своих баллов
 exports.updMarks = async (req, res, next) => {
     switch (req.method) {
-        // case "GET":
-        //     if (req.ability.can(rule.enrol)) {
-        //         res.sendFile(path.join("\\") + "\\views\\usersMarks.html");
-        //     }
-        //     else{
-        //         res.redirect('/auth/login')
-        //         break
-        //     }
-        //     break;
+         case "GET":
+             if (req.ability.can(rule.enrol)) {
+                 let marks = await Users_data.findOne({
+                     raw: true,
+                     nest: true,
+                     where: {
+                         id_auth: req.payload.id
+                     },
+                     include:
+                         {
+                             required: true,
+                             model: Users_marks,
+                             separate: false,
+                             attributes: ["math", "phys", "lang", "att"]
+                         }
+                 })
+
+                 res.render('marks',
+                     {
+                         auth: true,
+                         marks: marks.Users_marks,
+                         css: ['marks', 'materialize.min']
+                     }
+             )
+             }
+             else{
+                 res.redirect('/auth/login')
+                 break
+             }
+             break;
         case "POST":
             let math = parseInt(req.body.math)
             let phys = parseInt(req.body.physics)
@@ -455,13 +395,12 @@ exports.changeFiling = async (req, res, next) => {
     switch (req.method) {
         case "GET":
             if (req.ability.can(rule.enrol)){
-                res.sendFile(path.join("\\") + "\\views\\change_application.html");
-                // res.render(
-                //     'fitApplication',
-                //     {
-                //         title: "AddApplication",
-                //         css: `<link rel='stylesheet' href='/css/search.css'>`//TODO CSS
-                //     });
+                 res.render(
+                     'fitApplications',
+                     {
+                         title: "AddApplication",
+                         css: ['priority']
+                     });
             }
             else{
                 res.redirect('/auth/login')

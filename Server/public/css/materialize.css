@@ -3341,7 +3341,7 @@ input[type=range] + .thumb {
       -ms-user-select: none;
           user-select: none;
 }
-
+circle
 .circle {
   border-radius: 50%;
 }

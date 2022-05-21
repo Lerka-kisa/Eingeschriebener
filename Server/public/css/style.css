@@ -47,6 +47,17 @@ table {
 .hidden{
     min-height: calc(100vh - 18px - 65px);
 }
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
 /**
 GENERAL
  */
@@ -62,20 +73,27 @@ GENERAL
 }
 .x-large{
     font-size: x-large;
-    font-weight: 600;
 }
 .xx-large{
     font-size: xx-large;
-    font-weight: 600;
 }
 .xxx-large{
     font-size: xxx-large;
-    font-weight: 600;
 }
 .pointer{
     cursor: pointer;
 }
-
+.blue-button{
+    float:right;
+    height: 40px;
+    border: 0;
+    background: #0B7FAB;
+    border-radius:7px;
+    padding: 10px;
+    color:white;
+    font-size:18px;
+    margin: 5px;
+}
 /**
 HEADER
  */

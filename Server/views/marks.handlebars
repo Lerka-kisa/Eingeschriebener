@@ -1,0 +1,40 @@
+{{>header_belstu}}
+<div class="hidden"></div>
+    <div class="container-marks">
+
+        <div class="container-marks-text xx-large">
+            Запоните баллы
+            <hr>
+            Наверное, что что нужно написать, а ну-ка заполнили или поменяли, БЫСТРЕНЬКО!!!
+            (Хотел матом, но гит помнит все =))) )
+        </div>
+        <div class="container-marks-form">
+        <form name="belstu_fit" action="/belstu_fit/userinfo/marks" method="POST">
+            {{#with marks}}
+
+                <label class="x-large black-text" for="math">Математика:
+                    <input style="font-size: 25px; text-align: center" id="math" type="number" max="100" min="0" name="math" placeholder="0" value="{{math}}">
+                </label>
+
+                <label class="x-large black-text" for="Physics"> Физика:
+                    <input style="font-size: 25px; text-align: center" id="physics" type="number" max="100" min="0" name="physics" placeholder="0" value="{{phys}}">
+                </label>
+
+                <label class="x-large black-text" for="Language"> Русский/белорусский:
+                    <input style="font-size: 25px; text-align: center" id="language" type="number" max="100" min="0" name="language" placeholder="0" value="{{lang}}">
+                </label>
+
+                <label class="x-large black-text" for="Certificate"> Балл за аттестат:
+                    <input style="font-size: 25px; text-align: center" id="certificate"   type="number" max="100" min="0" name="certificate" placeholder="0" value="{{att}}">
+                </label>
+            {{/with}}
+
+            <div>
+                <input class="blue-button" id="submit" type="submit" name="offer"  value="Сохранить">
+            </div>
+        </form>
+        <button class="blue-button" onclick="window.location.href = 'https://Eingeschriebener/belstu_fit/userinfo'">Назад</button>
+        </div>
+        </div>
+
+{{>footer}}

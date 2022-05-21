@@ -15,7 +15,7 @@ exports.login = async (req, res, next) => {
                 'fitAuthorization',
                 {
                     title: "Authorization",
-                    css: ['authorization'],
+                    css: ['materialize.min', 'authorization'],
                     auth: false
 
                 });
@@ -81,7 +81,7 @@ exports.register = (req, res, next) => {
                 'fitRegistration',
                 {
                     title: "Registration",
-                    css: ['registration'],
+                    css: ['materialize.min','registration'],
                     auth: false
                 });
             //res.sendFile(path.join("\\") + "\\views\\register.html");

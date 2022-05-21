@@ -117,7 +117,7 @@ const formationBadApplications = (json, cont) => {
                         <th>ИСиТ</th>
                         <th>ПОИБМС</th>
                         <th>ДЭиВИ</th>
-                        <th>Одобрить</th>
+                        <th>Принять</th>
                         <th>Удалить</th>
                     </tr>`
 
@@ -126,6 +126,15 @@ const formationBadApplications = (json, cont) => {
 
         elem.Overall_ratings.forEach(fil => {
             badApp++
+
+            let status = ""
+            if(fil.file_number === "no number"){
+                status = "Дать номер"
+            }
+            else {
+                status = "Изменить номер"
+            }
+
             list += `<tr id="id_${fil.id}">
                 <td>${elem.surname} ${elem.name} ${elem.middle_name}</td>
                 <td>${fil.math}</td>
@@ -137,7 +146,7 @@ const formationBadApplications = (json, cont) => {
                 <td>${fil.ISIT}</td>
                 <td>${fil.POIBMS}</td>
                 <td>${fil.DEIVI}</td>
-                <td onclick="approve_app(${fil.id})">Одобрить</td>
+                <td onclick="approve_app(${fil.id})">${status}</td>
                 <td onclick="delete_app(${fil.id},'${cont}')">Удалить</td>
         </tr>
 <div id="form_approve${fil.id}"></div>`

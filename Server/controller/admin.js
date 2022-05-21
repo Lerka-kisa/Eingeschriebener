@@ -93,7 +93,7 @@ exports.allBadApplication = async (req, res, next) => {
                         include: [{
                             model: Overall_rating,
                             required: true,
-                            attributes: ["id","math", "phys", "lang", "att", "sum", "POIT", "ISIT", "POIBMS", "DEIVI"],
+                            attributes: ["id","math", "phys", "lang", "att", "sum", "POIT", "ISIT", "POIBMS", "DEIVI", "file_number"],
                             where:[{contract:contract, confirm:false}]
                         }]
                     }).then(r => {
@@ -179,7 +179,6 @@ exports.approveBadApplication = (req, res, next) => {
 
 //https://Eingeschriebener/belstu_fit/admin/all_bad_application/delete
 exports.deleteBadApplication = (req, res, next) => {
-
     switch (req.method) {
         case "POST":
             try {

@@ -1,20 +1,28 @@
 <div id="container__form" class="container__form">
     <div id="container__form__message">Привет!!! Я могу помочь тебе выбрать универ, для получения образования в сфере IT</div>
     <label for="math">Математика:
-        <input class="container__form__input" id="math" type="number" max="100" min="0" name="math" placeholder="0" value="0" required>
+        <input class="container__form__input" id="math" type="number" name="math" placeholder="0" value="0" required onkeyup="checkMath(this.value)">
     </label>
 
     <label for="Physics"> Физика:
-        <input class="container__form__input"  id="physics" type="number" max="100" min="0" name="physics" placeholder="0" value="0" required>
+        <input class="container__form__input"  id="physics" type="number" name="physics" placeholder="0" value="0" required onkeyup="checkPhys(this.value)">
     </label>
 
     <label for="Language"> Русский/белорусский:
-        <input class="container__form__input"  id="language" type="number" max="100" min="0" name="language" placeholder="0" value="0" required>
+        <input class="container__form__input"  id="language" type="number" name="language" placeholder="0" value="0" required onkeyup="checkLang(this.value)">
     </label>
 
     <label for="Certificate"> Балл за аттестат:
-        <input class="container__form__input"  id="certificate" type="number" max="100" min="0" name="certificate" placeholder="0" required value="0">
+        <input class="container__form__input"  id="certificate" type="number" name="certificate" placeholder="0" value="0" required onkeyup="checkAtt(this.value)">
     </label>
+
+    <div id="serving">
+        <p id="errorMath"></p>
+        <p id="errorPhys"></p>
+        <p id="errorLang"></p>
+        <p id="errorAtt"></p>
+        <p id="error"></p>
+    </div>
 
     <div id="contractChoice1">
     <input class="container__form__input__radio" type="radio"

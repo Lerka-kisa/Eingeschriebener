@@ -89,7 +89,7 @@ input:focus::-webkit-input-placeholder {
     grid-template-rows: 2fr 0.5fr 0.5fr 0.8fr auto;
     grid-template-areas: ' message message message message '
                          ' math physics language certificate '
-                         ' . choice1 choice2 . '
+                         ' error error choice1 choice2 '
                          ' but1 but1 but2 but2 '
                          ' list list list list ';
     width: 80%;
@@ -143,6 +143,17 @@ input:focus::-webkit-input-placeholder {
     grid-area: but2;
     width: 100%;
 }
+
+#serving{
+    grid-area: error;
+    width: 100%;
+    color: red;
+}
+
+#error{
+    font-size: 30px;
+}
+
 .container__form__input{
 }
 

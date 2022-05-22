@@ -6,7 +6,7 @@ small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
+caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
@@ -40,10 +40,6 @@ blockquote, q {
     quotes: none;
 }
 
-table {
-    border-collapse: collapse;
-    border: 2px solid darkblue;
-}
 .hidden{
     min-height: calc(100vh - 18px - 65px);
 }
@@ -103,7 +99,7 @@ HEADER
 
 .nav-wrapper{
     display: grid;
-    grid-template-columns: 200px 1fr 200px;
+    grid-template-columns: 200px 1fr 160px;
     grid-template-areas: ' fit logo icons';
     background-color: #E9723D;
     overflow: hidden;
@@ -114,7 +110,7 @@ HEADER
 }
 #logo{
     grid-area: logo;
-    font-size: 40px;
+    font-size: 30px;
     text-align: center;
 }
 #fit{
@@ -123,8 +119,10 @@ HEADER
 }
 #icons{
     grid-area: icons;
+    display: inline-flex;
 }
 .nav-wrapper-icons{
+    display: inline-block;
     height: 40px;
     margin: 10px;
     padding: 0;

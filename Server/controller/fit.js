@@ -19,7 +19,7 @@ exports.mainPage = async (req, res, next) => {
                 'fitMain',
                 {
                     title: "BelSTU",
-                    css: ['search', 'dialog'],
+                    css: ['dialog', 'belstu'],
                     enrollee: req.ability.can(rule.enrol),
                     auth: true
                 });

@@ -194,6 +194,3 @@ input:focus::-webkit-input-placeholder {
 td {
     padding: 10px 15px;
 }
-tr:nth-child(2n) {
-    background: #ffa500;
-}

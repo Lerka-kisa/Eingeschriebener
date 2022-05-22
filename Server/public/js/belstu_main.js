@@ -47,35 +47,37 @@ const monitoring = (json, cont) => {
     }
 
     let list = `<div id="belstu__monitoring__${cont}">Мониторинг ${type}:
-                <table id="belstu__monitoring__table__${cont}" style="border-collapse: collapse;">
+                <table id="belstu__monitoring__table__${cont}"  class="table">
+                <thead>
                     <tr>
-                        <th>Cпецуха</th>`
+                        <th class="specialization">Cпецуха</th>`
     for(let i=min; i<401 ;i = i + 10){
-        list += `<th>${i}-${i+9}</th>\n`
+        list += `<th>${i} - ${i+9}</th>\n`
     }
+    list += `</thead>`;
     list += `</tr>
             <tr>
                 <td>ПОИТ</td>`
     for(let i=Math.floor(min/10); i<40 ;i++){
-        list += `<th>${POIT[i]}</th>\n`
+        list += `<td>${POIT[i]}</td>\n`
     }
     list += `</tr>
             <tr>
                 <td>ИСиТ</td>`
     for(let i=Math.floor(min/10); i<40 ;i++){
-        list += `<th>${ISIT[i]}</th>\n`
+        list += `<td>${ISIT[i]}</td>\n`
     }
     list += `</tr>
             <tr>
                 <td>ПОИБМС</td>`
     for(let i=Math.floor(min/10); i<40 ;i++){
-        list += `<th>${POIBMS[i]}</th>\n`
+        list += `<td>${POIBMS[i]}</td>\n`
     }
     list += `</tr>
             <tr>
                 <td>ДЭиВИ</td>`
     for(let i=Math.floor(min/10); i<40 ;i++){
-        list += `<th>${DEIVI[i]}</th>\n`
+        list += `<td>${DEIVI[i]}</td>\n`
     }
     list +=`</tr></table>`
     list +=`</div>`

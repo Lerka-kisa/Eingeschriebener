@@ -1,10 +1,19 @@
+<div id="show-chat">
+    <img src="/icon/chat.png" alt="">
+</div>
+
+
 <div id="dialog_chat_admin">
+
     <div id="dialog_users">
 
     </div>
 
     <div id="dialog_interface">
-        <div id="dialog_indicator">Chat </div>
+        <div id="dialog_indicator">
+            <span id="dialog_chat_user_close">Х</span>
+            Chat
+        </div>
         <div id="dialog_messages">
 
         </div>
@@ -15,13 +24,35 @@
 
 <script>
     const ws = new WebSocket('wss://Eingeschriebener');
+    let chat = document.getElementById("dialog_chat_admin");
     const input = document.getElementById("dialog_input");
     const send = document.getElementById("dialog_send");
     let messages = document.getElementById("dialog_messages");
     let status = document.getElementById("dialog_status");
     let users = document.getElementById("dialog_users");
+    let button = document.getElementById("show-chat")
+    let close = document.getElementById("dialog_chat_user_close")
     let allMessages = [];
     let current = "";
+
+    button.addEventListener("click", () => {
+        button.classList.add('hideAdmin');
+        button.classList.remove('showAdmin')
+        chat.classList.add('showAdmin');
+        chat.classList.remove('hideAdmin');
+        setTimeout(() => button.style.right = '-430px', 1000)
+        setTimeout(() => chat.style.right = '0', 1000)
+    })
+
+    close.addEventListener("click", () => {
+        chat.classList.remove('showAdmin');
+        button.classList.remove('hideAdmin');
+        button.classList.add('showAdmin');
+        chat.classList.add('hideAdmin');
+
+        setTimeout(() => button.style.right = '0', 1000)
+        setTimeout(() => chat.style.right = '-430px', 990)
+    })
 
     send.addEventListener("click", () => {
         if(input.value !== "")

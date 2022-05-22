@@ -135,4 +135,7 @@ FOOTER
 footer {
     height: 20px;
     background: #0B7FAB;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

@@ -1,48 +1,29 @@
 /**
-SPECIALIZATIONS
+ADMIN
  */
-.container-specializations{
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-areas:
-                        'poit poit poit .'
-                        '. isit isit isit'
-                        'deivi deivi deivi .'
-                        '. poibms poibms poibms';
-    margin: 50px 30px 0 30px;
-    grid-gap: 20px;
-}
-.container-specializations-general{
-    background-color: rgba(255, 255, 255, 20%);
-    border: 1px solid white;
-    border-radius: 20px;
-    padding: 20px;
-}
-.container-specializations-header{
-    font-size: xx-large;
+.admin-header{
+    margin: auto;
+    left: 0;
+    right: 0;
     text-align: center;
-    border-bottom: 1px solid #E9723D;
 }
-.container-specializations-text{
-    font-size: x-large;
+.admin-buttons{
+    margin: 10px;
+    width: 220px;
+    height: 120px;
+    background-color: #E9723D;
+    border-radius: 20px;
 }
-
-.container-specializations-poit{
-    grid-area: poit;
-}
-.container-specializations-isit{
-    grid-area: isit;
-}
-.container-specializations-deivi{
-    grid-area: deivi;
-}
-.container-specializations-poibms{
-    grid-area: poibms;
+.admin-button{
+    border-radius: 20px;
+    width: 200px;
+    height: 40px;
+    padding: 10px;
+    margin: 10px;
 }
 /**
 TABLE
- */
+*/
 .text-for-table{
     font-size: 20px;
     margin-top: 20px;
@@ -89,8 +70,6 @@ TABLE
     color: white;
 }
 
-
-
 .table td:hover:before {
     background-color: #eee;
     content: '';
@@ -112,11 +91,39 @@ TABLE
     width: 100%;
     z-index: -1;
 }
+.table td:hover:last-child {
 
-.specialization{
-    font-size: 14px;
+}
+.td-button-table{
+    padding: 0;
+    margin: 0;
+}
+.button-table{
+    display: block;
+    width: 100%;
+    background-color: #E9723D;
+    margin: 3px;
+    height: 100%;
+    border: 1px solid white;
+}
+.button-table-green:hover{
+    cursor: pointer;
+    background-color: green;
+    color: white;
+}
+.button-table-red:hover{
+    cursor: pointer;
+    background-color: red;
+    color: white;
 }
 
-#submit_check_filing{
-    margin: 40px;
+#view__table__budgetary{
+    font-size: 20px;
+}
+
+#admin_bad_application_paid{
+    font-size: 20px;
+}
+#view__table__paid{
+    font-size: 20px;
 }

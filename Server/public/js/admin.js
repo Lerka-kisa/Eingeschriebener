@@ -11,11 +11,12 @@ const formationGoodApplications = (json, cont) => {
     }
 
     if (json.length === 0){
-        return `Пока никто не подал заявку на ${contract}(((`
+        return `Пока никто не подал заявку на ${contract}`
     }
     list +=`<div id="admin_good_filing_${cont}">
                 На ${contract}:
-                <table id="admin_good_filing_${cont}_table" style="border-collapse: collapse;">
+                <table id="admin_good_filing_${cont}_table" class="table">
+                <thead>
                     <tr>
                         <th>№ дела</th>
                         <th>ФИО</th>
@@ -28,11 +29,12 @@ const formationGoodApplications = (json, cont) => {
                         <th>ИСиТ</th>
                         <th>ПОИБМС</th>
                         <th>ДЭиВИ</th>
-                    </tr>`
+                    </tr>
+                </thead>`
 
     json.forEach(elem =>{
         console.log(elem)
-
+        list += `<tbody>`
         elem.Overall_ratings.forEach(fil => {
             list += `<tr>
                     <td>${fil.file_number}</td>
@@ -47,7 +49,7 @@ const formationGoodApplications = (json, cont) => {
                     <td>${fil.POIBMS}</td>
                     <td>${fil.DEIVI}</td>
         </tr>`
-            //console.log(fil.sum)
+            list += `</tbody>`
         })
 
     })
@@ -101,11 +103,12 @@ const formationBadApplications = (json, cont) => {
     }
 
     if (json.length === 0){
-        return `На ${contract} нет заявок для обработки(((`
+        return `На ${contract} нет заявок для обработки`
     }
     list +=`<div id="admin_bad_application_${cont}">
                 На ${contract}:
-                <table id="admin_bad_application_${cont}_table" style="border-collapse: collapse;">
+                <table id="admin_bad_application_${cont}_table" class="table">
+                <thead>
                     <tr id="header_bad_table_${cont}">
                         <th>ФИО</th>
                         <th>М</th>
@@ -117,9 +120,9 @@ const formationBadApplications = (json, cont) => {
                         <th>ИСиТ</th>
                         <th>ПОИБМС</th>
                         <th>ДЭиВИ</th>
-                        <th>Принять</th>
-                        <th>Удалить</th>
-                    </tr>`
+                        <th>Действие</th>
+                    </tr>
+                </thead>`
 
     json.forEach(elem =>{
         console.log(elem)
@@ -134,7 +137,7 @@ const formationBadApplications = (json, cont) => {
             else {
                 status = "Изменить номер"
             }
-
+            list += `<tbody style="font-size: 14px">`;
             list += `<tr id="id_${fil.id}">
                 <td>${elem.surname} ${elem.name} ${elem.middle_name}</td>
                 <td>${fil.math}</td>
@@ -146,13 +149,16 @@ const formationBadApplications = (json, cont) => {
                 <td>${fil.ISIT}</td>
                 <td>${fil.POIBMS}</td>
                 <td>${fil.DEIVI}</td>
-                <td onclick="approve_app(${fil.id})">${status}</td>
-                <td onclick="delete_app(${fil.id},'${cont}')">Удалить</td>
+                <td class="td-button-table">                
+                <button class="button-table-green button-table" onclick="approve_app(${fil.id})">${status}</button>
+                <button class="button-table-red button-table" onclick="delete_app(${fil.id},'${cont}')">Удалить</button>
+                </td>
         </tr>
 <div id="form_approve${fil.id}"></div>`
             //console.log(fil.sum)
         })
     })
+    list += `</tbody>`;
     list += `</table></div>`
     //console.log(list)
     return list
@@ -191,7 +197,7 @@ const getAllBadApplications = () => {
 }
 
 const approve_app = (id) => {
-    let list = `<form name="belstu_fit" action="/belstu_fit/admin/all_bad_application/approve" method="POST">
+    document.getElementById(`form_approve${id}`).innerHTML = `<form name="belstu_fit" action="/belstu_fit/admin/all_bad_application/approve" method="POST">
     <label for="id_app">Номер заявки:
         <input id="id_app" type="text" name="id_app" value="${id}" readonly>
     </label><br/><br/>
@@ -207,7 +213,6 @@ const approve_app = (id) => {
 <!--        <button type="button" name="sign" value="SIGN UP" onclick="{document.auth.inputHide.value=this.value;document.auth.submit();}">Одобрить</button>-->
     </div>
 </form>`
-    document.getElementById(`form_approve${id}`).innerHTML = list
 }
 
 const delete_app = (id,cont) => {

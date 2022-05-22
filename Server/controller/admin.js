@@ -21,7 +21,7 @@ exports.admin = async (req, res, next) => {
                         'fitAdmin',
                         {
                             title: "Admin",
-                            css: ['dialog'],
+                            css: ['dialog', 'admin'],
                             auth: true
                         });
                     break

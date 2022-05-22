@@ -33,10 +33,6 @@ const monitoring = (json, cont) => {
             DEIVI[a]++
         }
     })
-    // console.log(POIT)
-    // console.log(ISIT)
-    // console.log(POIBMS)
-    // console.log(DEIVI)
 
     let type = ""
     if(cont === "budgetary"){
@@ -46,7 +42,7 @@ const monitoring = (json, cont) => {
         type = "платного"
     }
 
-    let list = `<div id="belstu__monitoring__${cont}">Мониторинг ${type}:
+    let list = `<div id="belstu__monitoring__${cont}" class="text-for-table">Мониторинг ${type}:
                 <table id="belstu__monitoring__table__${cont}"  class="table">
                 <thead>
                     <tr>

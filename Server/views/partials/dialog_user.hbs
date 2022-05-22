@@ -1,6 +1,11 @@
+<div id="show-chat">
+    <img src="/icon/chat.png" alt="">
+</div>
+
 <div id="dialog_chat_user">
     <div id="dialog_indicator">Manager
         <div id="dialog_status"> </div>
+        <span id="dialog_chat_user_close">Х</span>
     </div>
     <div id="dialog_messages">
 
@@ -13,8 +18,30 @@
     const ws = new WebSocket('wss://Eingeschriebener');
     const input = document.getElementById("dialog_input");
     const send = document.getElementById("dialog_send");
+    let chat = document.getElementById("dialog_chat_user");
     let messages = document.getElementById("dialog_messages");
     let status = document.getElementById("dialog_status");
+    let button = document.getElementById("show-chat")
+    let close = document.getElementById("dialog_chat_user_close")
+
+    button.addEventListener("click", () => {
+            button.classList.add('hide');
+            button.classList.remove('show')
+            chat.classList.add('show');
+            chat.classList.remove('hide');
+            setTimeout(() => button.style.right = '-300px', 2000)
+            setTimeout(() => chat.style.right = '0', 2000)
+    })
+
+    close.addEventListener("click", () => {
+        chat.classList.remove('show');
+        button.classList.remove('hide');
+        button.classList.add('show');
+        chat.classList.add('hide');
+
+        setTimeout(() => button.style.right = '0', 2000)
+        setTimeout(() => chat.style.right = '-300px', 1900)
+    })
 
     send.addEventListener("click", () => {
         if(input.value !== "")
@@ -55,9 +82,5 @@
         status.style.backgroundColor = "red";
     }
 
-    /*    let iterator = 0;
-        setInterval(() => {
-            ws.send(JSON.stringify({action: "message", message: `any ${iterator++}`   }))
-        },10000)*/
-
 </script>
+

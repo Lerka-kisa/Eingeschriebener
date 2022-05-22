@@ -1,126 +1,27 @@
 <div class="hidden container-priority">
-    <div class="container-priority-text">
-        Если вы действительно желаете принять участие в конкурсе приёмной комиссии факультета информационных технологий ГУО"БГТУ", то вам необходимо ознакомиться с некоторой информацией:
-        <br>
-        1.В данный момент, вы подаёте заявку на участие в конкурсе
-        <br>
-        Это означает, что ваши данные запишуться, но не будут отображены в общем мониторинге, пока вы не подадите заявление в универ.
-        <br>
-        То, что вы сейчас заполните, не заменяет процесс подачи заявления, а только лишь её ускоряет
-        <br>
-        2.Для подачи заявления при себе необходимо иметь:...
-    </div>
+    {{#if new}}
+        {{>instruction}}
+        <form class="container-priority-form" name="belstu_fit" action="filing" method="POST">
 
-    <form class="container-priority-form" name="belstu_fit" action="filing" method="POST">
-        <p>
-            <label>
-                <input type="checkbox" name="group1" />
-                <span>Я прочитал условие, согласен с ними и даю разрешение на обработку своих данных</span>
-            </label>
-        </p>
+            {{>form_for_application}}
 
-        <p>Тип договора:</p>
-        <div class="radio-group">
-            <input  id="budgetary" class="with-gap" name="contact" value="budgetary" type="radio"  />
-            <label for="budgetary">Бюджет</label>
-
-            <input id="paid" class="with-gap" name="contact"  value="paid"  checked type="radio"  />
-            <label for="paid">Платная</label>
-
-        </div>
-
-        <div id="priority" >Расставтье приоритеты, по принципу: на какю специальность больше хочу, та 1 и т.д.
-            <div class="priority-grid-table">
-                <div id="priority__POIT">ПОИТ:</div>
-
-                <div class="radio-group">
-                    <input id="poit1" type="radio" name="priority_poit" value="1" required checked>
-                    <label for="poit1">1</label>
-
-                    <input id="poit2" type="radio" name="priority_poit" value="2" required checked>
-                    <label for="poit2">2</label>
-
-                    <input id="poit3" type="radio" name="priority_poit" value="3" required checked>
-                    <label for="poit3">3</label>
-
-                    <input id="poit4" type="radio" name="priority_poit" value="4" required checked>
-                    <label for="poit4">4</label>
-
-                    <input id="poit0" type="radio" name="priority_poit" value="0" required checked>
-                    <label for="poit0">Не рассматриваю</label>
-                </div>
-
-                <div id="priority__ISIT">ИСиТ:</div>
-
-                <div class="radio-group">
-                    <input id="isit1" type="radio" name="priority_isit" value="1" required checked>
-                    <label for="isit1">1</label>
-
-
-                    <input id="isit2" type="radio" name="priority_isit" value="2" required checked>
-                    <label for="isit2">2</label>
-
-                    <input id="isit3" type="radio" name="priority_isit" value="3" required checked>
-                    <label for="isit3">3</label>
-
-                    <input id="isit4" type="radio" name="priority_isit" value="4" required checked>
-                    <label for="isit4">4</label>
-
-                    <input id="isit0" type="radio" name="priority_isit" value="0" required checked>
-                    <label for="isit0">Не рассматриваю</label>
-                </div>
-
-                <div id="priority__POIBMS">ПОИБМС:</div>
-
-                <div class="radio-group">
-                    <input id="poibms1" type="radio" name="priority_poibms" value="1" required checked>
-                    <label for="poibms1">1</label>
-
-                    <input id="poibms2" type="radio" name="priority_poibms" value="2" required checked>
-                    <label for="poibms2">2</label>
-
-                    <input id="poibms3" type="radio" name="priority_poibms" value="3" required checked>
-                    <label for="poibms3">3</label>
-
-                    <input id="poibms4" type="radio" name="priority_poibms" value="4" required checked>
-                    <label for="poibms4">4</label>
-
-                    <input id="poibms0" type="radio" name="priority_poibms" value="0" required checked>
-                    <label for="poibms0">Не рассматриваю</label>
-                </div>
-
-                <div id="priority__DEIVI">ДЭиВИ:</div>
-
-                <div class="radio-group">
-                    <input id="deivi1" type="radio" name="priority_deivi" value="1" required checked>
-                    <label for="deivi1">1</label>
-
-                    <input id="deivi2" type="radio" name="priority_deivi" value="2" required checked>
-                    <label for="deivi2">2</label>
-
-                    <input id="deivi3" type="radio" name="priority_deivi" value="3" required checked>
-                    <label for="deivi3">3</label>
-
-                    <input id="deivi4" type="radio" name="priority_deivi" value="4" required checked>
-                    <label for="deivi4">4</label>
-
-                    <input id="deivi0" type="radio" name="priority_deivi" value="0" required checked>
-                    <label for="deivi0">Не рассматриваю</label>
-                </div>
-
+            <div>
+                <input style="width: 200px;" id="add_info_submit" class="blue-button" type="submit" name="offer"  value="Подать">
             </div>
-        </div>
+        </form>
+    {{else}}
+        <form class="container-priority-form" name="belstu_fit" action="change_filing" method="POST">
 
-        <div id="serving">
-            <p id="errorInput"></p>
-            <p id="error"></p>
-        </div>
+            {{>form_for_application}}
 
-        <input type="hidden" name="inputHide" />
-        <div>
-            <input style="width: 200px;" id="add_info_submit" class="blue-button" type="submit" name="offer"  value="Add">
-        </div>
-    </form>
+            <div>
+                <input style="width: 200px;" id="add_info_submit" class="blue-button" type="submit" name="offer"  value="Изменить">
+            </div>
+        </form>
+    {{/if}}
+
+    <input type="hidden" name="inputHide" />
+
 </div>
 <script>
     let poit =  document.getElementsByName('priority_poit');

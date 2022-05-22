@@ -5,9 +5,9 @@
                 Личная информация
             </div>
             <div class="userinfo-rows">
-                <div class="userinfo-row">Фамилия: {{this.middle_name}}</div>
+                <div class="userinfo-row">Фамилия: {{this.surname}}</div>
                 <div class="userinfo-row">Имя: {{this.name}}</div>
-                <div class="userinfo-row">Отчество: {{this.surname}}</div>
+                <div class="userinfo-row">Отчество: {{this.middle_name}}</div>
                 <div class="userinfo-row">День рождения: {{this.date_of_birth}}</div>
                 <div class="userinfo-row">Адрес: {{this.address}}</div>
                 <div class="userinfo-row">Почта: {{this.mail}}</div>
@@ -54,23 +54,22 @@
                     <div>
                         Номер дела: {{this.file_number}}
                     </div>
-                {{else}}
-                    <div id="status processing">
-                        В обработке
+                    <div class="status-info">
+                        <div class="userinfo-row">Ваши баллы: {{this.sum}}</div>
+                        <div class="userinfo-row">Приоритеты:</div>
+                        <div class="userinfo-row">ПОИТ: {{this.POIT}}</div>
+                        <div class="userinfo-row">ИСИТ: {{this.ISIT}}</div>
+                        <div class="userinfo-row">ПОИБмС: {{this.POIBMS}}</div>
+                        <div class="userinfo-row">ДЭиВИ: {{this.DEIVI}}</div>
                     </div>
-                {{/if}}
-                <div class="status-info">
-                    <div class="userinfo-row">Ваши баллы: {{this.sum}}</div>
-                    <div class="userinfo-row">Приоритеты:</div>
-                    <div class="userinfo-row">ПОИТ: {{this.POIT}}</div>
-                    <div class="userinfo-row">ИСИТ: {{this.ISIT}}</div>
-                    <div class="userinfo-row">ПОИБмС: {{this.POIBMS}}</div>
-                    <div class="userinfo-row">ДЭиВИ: {{this.DEIVI}}</div>
-                </div>
                     <button class="userinfo-button" onclick="location.href = 'https://Eingeschriebener/belstu_fit/userinfo/change_filing';">
                         Поменять приоритеты
                     </button>
-
+                {{else}}
+                    <div id="status" class="processing">
+                        В обработке
+                    </div>
+                {{/if}}
             </div>
         </div>
     {{/with}}

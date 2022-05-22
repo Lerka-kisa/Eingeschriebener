@@ -308,15 +308,16 @@ sequelize.authenticate()
                 id_auth: 1
             },
             include: [{
-                model: Overall_rating,
+                model: Users_marks,
                 required: true
             }]
         })
             .then(r => {
-                if (r.length === 0) {
+                if (r/*.length === 0*/) {
                     console.log("OK)))))))))))))))))))))))))))))))")
                 }
                 else{
+                    console.log(r.Users_marks)
                     console.log("Has already))))))))))))))))))))))))))))))))))))))")
                 }
             })

@@ -15,7 +15,7 @@ Authorization_data.init(
 );
 Users_data.init(
     {
-            id_auth:        {type: Sequelize.INTEGER,   allowNull:false, references: {model: Authorization_data, key:'id'}},
+            id_auth:        {type: Sequelize.INTEGER,   allowNull:false, unique:true, references: {model: Authorization_data, key:'id'}},
             surname:        {type: Sequelize.STRING,    allowNull:false},
             name:           {type: Sequelize.STRING,    allowNull:false},
             middle_name:    {type: Sequelize.STRING,    allowNull:false},
@@ -28,7 +28,7 @@ Users_data.init(
 );
 Users_marks.init(
     {
-            id_user:    {type: Sequelize.INTEGER,   allowNull:false, references: {model: Users_data, key:'id'}},
+            id_user:    {type: Sequelize.INTEGER,   allowNull:false, unique:true, references: {model: Users_data, key:'id'}},
             math:       {type: Sequelize.INTEGER,   allowNull:true},
             phys:       {type: Sequelize.INTEGER,   allowNull:true},
             lang:       {type: Sequelize.INTEGER,   allowNull:true},
@@ -40,28 +40,31 @@ Users_marks.init(
 Overall_rating.init(
     {
             id_user:    {type: Sequelize.INTEGER,    allowNull:false, unique:true, references: {model: Users_data, key:'id'}},
-            file_number:{type: Sequelize.STRING,     allowNull:true},
+            file_number:{type: Sequelize.STRING,     allowNull:false},
             math:        {type: Sequelize.INTEGER,    allowNull:false},
             phys:        {type: Sequelize.INTEGER,    allowNull:false},
             lang:        {type: Sequelize.INTEGER,    allowNull:false},
             att:        {type: Sequelize.INTEGER,    allowNull:false},
             sum:        {type: Sequelize.INTEGER,    allowNull:false},
-            POIT:       {type: Sequelize.INTEGER,    allowNull:true},
-            ISIT:       {type: Sequelize.INTEGER,    allowNull:true},
-            POIBMS:     {type: Sequelize.INTEGER,    allowNull:true},
-            DEIVI:      {type: Sequelize.INTEGER,    allowNull:true},
+            POIT:       {type: Sequelize.INTEGER,    allowNull:false},
+            ISIT:       {type: Sequelize.INTEGER,    allowNull:false},
+            POIBMS:     {type: Sequelize.INTEGER,    allowNull:false},
+            DEIVI:      {type: Sequelize.INTEGER,    allowNull:false},
             contract:   {type: Sequelize.STRING,     allowNull:false},
             confirm:    {type: Sequelize.BOOLEAN,    allowNull:false}
     },
     {sequelize, modelName:'Overall_rating', tableName:'Overall_rating', timestamps:false}
 )
 
+//Authorization_data.hasOne(Users_data, {foreignKey: 'id_auth'});
 Authorization_data.hasMany(Users_data, {foreignKey: 'id_auth'});
 Users_data.belongsTo(Authorization_data, {foreignKey: 'id_auth'});
 
+//Users_data.hasOne(Users_marks, {foreignKey: 'id_user'});
 Users_data.hasMany(Users_marks, {foreignKey: 'id_user'});
 Users_marks.belongsTo(Users_data, {foreignKey: 'id_user'});
 
+//Users_data.hasOne(Overall_rating, {foreignKey: 'id_user'});
 Users_data.hasMany(Overall_rating, {foreignKey: 'id_user'});
 Overall_rating.belongsTo(Users_data, {foreignKey: 'id_user'});
 

@@ -56,11 +56,14 @@ exports.userinfo = async (req, res, next) => {
                                 attributes: ["math", "phys", "lang", "att"]
                             },
                             {
-                                required: true,
+                                required: false,
                                 model: Overall_rating
                         }]
                     })
-
+                    if(userData === null){
+                        res.redirect('/belstu_fit/userinfo/add')
+                        break
+                    }
                    /* userData.Users_marks.zero = false;*/
 
                     for (const key  in userData.Users_marks) {
@@ -255,6 +258,7 @@ exports.checkFiling = async (req, res, next) => {
                     mess = false
                 }
                 else{
+                    console.log(userDataMarks)
                     userDataMarks.Users_marks.forEach(m => {
                         if(m.math === 0 || m.phys === 0 || m.lang === 0 || m.att === 0){
                             //mess = "Not all CT"
@@ -315,8 +319,9 @@ exports.filing = async (req, res, next) => {
                     'fitApplications',
                     {
                         title: "AddApplication",
-                        css: ['search'],
-                        auth: true
+                        css: ['priority'],
+                        auth: true,
+                        new: true
                     }
                 );
                 break
@@ -399,7 +404,8 @@ exports.changeFiling = async (req, res, next) => {
                      'fitApplications',
                      {
                          title: "AddApplication",
-                         css: ['priority']
+                         css: ['priority'],
+                         new: false
                      });
             }
             else{
@@ -414,6 +420,7 @@ exports.changeFiling = async (req, res, next) => {
             let isit = req.body.priority_isit
             let poibms = req.body.priority_poibms
             let deivi = req.body.priority_deivi
+            let contract = req.body.contact
             let id_auth = parseInt(req.payload.id)
             let id_user = 0
             let sum = 0
@@ -430,6 +437,7 @@ exports.changeFiling = async (req, res, next) => {
                         ISIT:isit,
                         POIBMS:poibms,
                         DEIVI:deivi,
+                        contract: contract,
                         confirm:false
                     },
                     {where: {id_user: r.id}

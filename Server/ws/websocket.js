@@ -173,20 +173,20 @@ wsServer.on('connection', (socket, request, response) => {
 });
 
 
-const getCookies = (request) => {
-    let cookies = {};
-    if(request.headers.cookie) request.headers.cookie.split(';').forEach((cookie)=>
-    {
-        let parts = cookie.match(/(.*?)=(.*)$/);
-        let name = parts[1].trim();
-        cookies[ name ] = (parts[2] || '').trim();
-    });
-    return cookies.accessToken;
-}
+    const getCookies = (request) => {
+        let cookies = {};
+        if(request.headers.cookie) request.headers.cookie.split(';').forEach((cookie)=>
+        {
+            let parts = cookie.match(/(.*?)=(.*)$/);
+            let name = parts[1].trim();
+            cookies[ name ] = (parts[2] || '').trim();
+        });
+        return cookies.accessToken;
+    }
 
-const getPayload = (socket, message) => {
-    return jwt.decode(message.jwt, {complete: true}).payload;
-}
+    const getPayload = (socket, message) => {
+        return jwt.decode(message.jwt, {complete: true}).payload;
+    }
 
 module.exports = {wsServer};
 

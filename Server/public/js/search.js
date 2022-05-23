@@ -12,7 +12,7 @@ function checkMath(num) {
     }
     else
     {
-        document.getElementById("errorInput").innerHTML = "";
+        document.getElementById("errorMath").innerHTML = "";
         document.getElementsByName("math")[0].style.borderColor = "green";
         mathCheck = true;
     }
@@ -27,7 +27,7 @@ function checkPhys(num) {
     }
     else
     {
-        document.getElementById("errorInput").innerHTML = "";
+        document.getElementById("errorPhys").innerHTML = "";
         document.getElementsByName("physics")[0].style.borderColor = "green";
         physCheck = true;
     }
@@ -42,7 +42,7 @@ function checkLang(num) {
     }
     else
     {
-        document.getElementById("errorInput").innerHTML = "";
+        document.getElementById("errorLang").innerHTML = "";
         document.getElementsByName("language")[0].style.borderColor = "green";
         langCheck = true;
     }
@@ -76,6 +76,10 @@ const send = () =>{
         }
     });
 
+    console.log("M" + mathCheck)
+    console.log("F" + physCheck)
+    console.log("L" + langCheck)
+    console.log("A" + attCheck)
     if(mathCheck&&physCheck&&langCheck&&attCheck){
         //fetch("https://localhost:443/univers/offer", /*TODO https*/{
         fetch("https://Eingeschriebener/univers/offer", /*TODO link*/{
@@ -104,7 +108,7 @@ const send = () =>{
         })
     }
     else{
-        document.getElementById("error").innerHTML = "Ты глупенький??? Проверь, что ты ввёл";
+        document.getElementById("error").innerHTML = /*"Данные введены некорректно"*/"Ты глупенький??? Проверь, что ты ввёл";
     }
 
 }

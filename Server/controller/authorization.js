@@ -19,9 +19,6 @@ exports.login = async (req, res, next) => {
                     auth: false
 
                 });
-            //res.sendFile(path.join("\\") + "\\views\\index.html");
-            //fs.createReadStream("\\views\\login.txt").pipe(res)
-            //res.sendFile(path.join("\\") + "\\views\\login.txt")
             break;
         case "POST":
             if(req.body.login && req.body.password) {
@@ -29,14 +26,11 @@ exports.login = async (req, res, next) => {
                     let login = req.body.login
                     let password = req.body.password
                     let hashPassword = crypto.createHash('md5').update(password).digest('hex')
-                    const auth = await Authorization_data.findOne(
-                        {
-                            where:{
-                                [Sequelize.Op.and]:[{ login: login, password: hashPassword }]
-                            }
-                        })//.then(r => Console.log(r))
-                    //.catch(r => Console.log(` жопа ${r}`));
-
+                    const auth = await Authorization_data.findOne({
+                        where:{
+                            [Sequelize.Op.and]:[{ login: login, password: hashPassword }]
+                        }
+                    })
                     const accessToken = jwt.sign({
                         id: auth.id,
                         login: auth.login,
@@ -115,6 +109,9 @@ exports.logout = (req, res) =>
     res.redirect('/belstu_fit');
 };
 
+exports.ability = (req, res) => {
+    res.status(200).send(req.rules);
+}
 exports.ability = (req, res) => {
     res.status(200).send(req.rules);
 }

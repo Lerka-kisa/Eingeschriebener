@@ -144,9 +144,6 @@ exports.offerById = (req, res, next) => {
                 .then(r => {
                     if (r.length === 0){
                         res.status(200).json({error: "Data not found"})
-/*                        res.statusCode = 404;
-                        res.messageerror = "Data not found";
-                        res.end();*/
                     }
                     else{
                         res.status(200).json(r);

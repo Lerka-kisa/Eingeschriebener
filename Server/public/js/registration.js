@@ -5,7 +5,7 @@ let repeatCheck = false;
 function checkLogin(str) {
     if(str.length < 4)
     {
-        document.getElementById("errorInput").innerHTML = "Login must be more than 4 characters";
+        document.getElementById("errorInput").innerHTML = "Логин не может состоять менее чем из 4 символов";
         document.getElementsByName("login")[0].style.borderColor = "red";
         loginCheck = false;
     }
@@ -19,7 +19,7 @@ function checkLogin(str) {
 
 function checkPassword(str) {
     if (str.length < 8) {
-        document.getElementById("errorInput").innerHTML = "Password must be more than 8 characters";
+        document.getElementById("errorInput").innerHTML = "Пароль должен состоять более чем из 8 знаков";
         document.getElementsByName("password")[0].style.borderColor = "red";
         passwordCheck = false;
         return;
@@ -30,7 +30,7 @@ function checkPassword(str) {
     }
 
     if (str !== document.getElementsByName("repeat")[0].value) {
-        document.getElementById("errorInput").innerHTML = "Password not equals the password repeated";
+        document.getElementById("errorInput").innerHTML = "Повтор пароля и пароль не совпадают";
         document.getElementsByName("password")[0].style.borderColor = "red";
         document.getElementsByName("repeat")[0].style.borderColor = "red";
         repeatCheck = false
@@ -43,19 +43,8 @@ function checkPassword(str) {
 }
 
 function checkRepeat(str) {
-    if (str.length < 8) {
-        document.getElementById("errorInput").innerHTML = "Repeated must be more than 8 characters";
-        document.getElementsByName("repeat")[0].style.borderColor = "red";
-        passwordCheck = false;
-        return;
-    } else {
-        document.getElementById("errorInput").innerHTML = "";
-        document.getElementsByName("repeat")[0].style.borderColor = "green";
-        passwordCheck = true;
-    }
-
     if (str !== document.getElementsByName("password")[0].value) {
-        document.getElementById("errorInput").innerHTML = "Repeated not equals the password repeated";
+        document.getElementById("errorInput").innerHTML = "Повтор пароля и пароль не совпадают";
         document.getElementsByName("password")[0].style.borderColor = "red";
         document.getElementsByName("repeat")[0].style.borderColor = "red";
         repeatCheck = false

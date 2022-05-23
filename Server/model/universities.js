@@ -5,6 +5,11 @@ class Faculty_data extends Model{}
 class Speciality_data extends Model{}
 class Entry_threshold extends Model{}
 
+class Authorization_data extends Model{}
+class Users_data extends Model{}
+class Users_marks extends Model{}
+class Overall_rating extends Model{}
+
 University_data.init(
     {
         name:   {type: Sequelize.STRING, allowNull:false},

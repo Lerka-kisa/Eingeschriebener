@@ -29,13 +29,13 @@ let options = {
     cert: fs.readFileSync('./security/certificate/RS-Eingeschriebener.crt').toString()
 };
 
-app.engine('handlebars', engine( {
-    extname: 'hbs',
-    defaultLayout: 'main',
-    layoutsDir: __dirname + '/views/layouts/',
-    partialsDir: __dirname + '/views/partials/'
-} ));
-app.set('view engine', 'handlebars');
+    app.engine('handlebars', engine( {
+        extname: 'hbs',
+        defaultLayout: 'main',
+        layoutsDir: __dirname + '/views/layouts/',
+        partialsDir: __dirname + '/views/partials/'
+    } ));
+    app.set('view engine', 'handlebars');
 
 app.use(express.static("public"));
 app.use(cookieParser("cookie_key"));

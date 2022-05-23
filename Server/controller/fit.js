@@ -161,7 +161,7 @@ exports.addInfo = async (req, res, next) => {
 //Изменение своих баллов
 exports.updMarks = async (req, res, next) => {
     switch (req.method) {
-         case "GET":
+        case "GET":
              if (req.ability.can(rule.enrol)) {
                  let marks = await Users_data.findOne({
                      raw: true,
@@ -303,7 +303,6 @@ exports.checkFiling = async (req, res, next) => {
                 //mess = "Not authorized"
                 break
             }
-
         default:
             res.statusCode = 405;
             res.messageerror = "Method not allowed";
